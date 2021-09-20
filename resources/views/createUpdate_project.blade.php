@@ -36,82 +36,45 @@
                         </div>
                     </div>
                     <div class="main-custom-input mt-4">
-                        <input type="text" name="name" placeholder="اسم المشروع" >
+                        <input type="text" name="name" placeholder="اسم المشروع" value="{{$projects->name}}" >
                     </div>
                     <div class="main-custom-input mt-4">
                         <textarea name="description" id="" class="w-100" data-error rows="5"
-                                  placeholder="وصف المشروع"></textarea>
+                                  placeholder="وصف المشروع" >{{$projects->description}}</textarea>
                     </div>
-                    <div class="input-section mt-4">
-                        <h2>المستهدفات</h2>
-                        <p>:مثال
-                            العامل: عدد تحميلات التطبيق 5000 تحميل , اسم الهدف: عدد التحميلات , الهدف :5000 </p>
-                        <div class="main-custom-input mb-3 clone d-none" style="display: none">
-                            <div>
-                                <input type="text" class="factor" required placeholder="العامل" disabled id="factor"
-                                       name="factor[]">
-                            </div>
-                            <div>
-                                <input type="text" class="target_name" required placeholder="اسم الهدف" disabled id="target_name"
-                                       name="target_name[]">
-                            </div>
-                            <div>
-                                <input type="text" class="target_number" required placeholder="الهدف(رقم)" disabled
-                                       id="target_number" name="target_number[]">
 
-                            </div>
-                            <i class="fa fa-times  new-remove" aria-hidden="true"></i>
-                        </div>
-
-                        @foreach($projects->targets as $project )
-                            <div class="cards">
-                                <div class="main-custom-input mb-3">
-                                    <div>
-                                        <input type="text" class="factor" required placeholder="العامل" name="factor[]" id="factor" value="{{$project->factor}}" >
-                                    </div>
-                                    <div>
-                                        <input type="text" class="target_name" required placeholder="اسم الهدف" name="target_name[]"  id="target_name"  value="{{$project->target_name}}">
-                                    </div>
-                                    <div>
-                                        <input type="text" class="target_number" required placeholder="الهدف(رقم)"
-                                               name="target_number[]" id="target_number" value="{{$project->target_number}}">
-                                    </div>
-                                    <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
-                                </div>
-
-                            </div>
-                        @endforeach
-                        <div class="text-center">
-                            <button type="button" class="btn btn-custom btn-add "> + إضافة عامل جديد</button>
-                        </div>
-                    </div>
                     <div class="input-section mt-4">
                         <h2>المرفقات</h2>
                         <p>إضافة المرفقات الخاصة بالمشروع مثل خطة العمل و الملفات المتعلقة بالمشروع </p>
+
+
+
                         <div class="main-custom-input upload-input clone d-none mb-3">
-                            <input type="file" required class="d-none" id="file-upload" name="attachment[]" disabled>
+                            <input type="file" required class="d-none" id="file-upload" name="attachment[]"disabled>
                             <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                            <input type="text" required placeholder="اسم الملف" name="attachment_name[]" disabled>
+                            <input type="text" required placeholder="اسم الملف" name="attachment_name[]" value="" disabled>
                             <i class="fa fa-times px-3 new-remove" style="margin-left: -33px;" aria-hidden="true"></i>
                         </div>
 
+                        @foreach($projects->attachments as $attachment)
                         <div class="cards">
                             <div class="main-custom-input upload-input mb-3">
 
                                 <input type="file" class="d-none" id="file-upload" name="attachment[]">
                                 <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                                <input type="text" placeholder="اسم الملف" name="attachment_name[]">
+                                <input type="text" placeholder="اسم الملف" name="attachment_name[]" value="{{$attachment->attachment_name}}">
                                 {{--                                <button class="btn custom-btn-edit upload-file-btn ">رفع</button>--}}
                                 <i class="fa fa-times px-3 new-remove" style="opacity: 0;" aria-hidden="true"></i>
                             </div>
 
                         </div>
+                        @endforeach
                         <div class="text-center">
                             <button type="button" class="btn btn-custom btn-add  "> + إضافة ملف جديد</button>
                         </div>
                     </div>
                     <div class="text-center save-project">
-                        <button class="btn custom-btn-edit w-100">اضافة مشروع</button>
+                        <button class="btn custom-btn-edit w-100"> <i class="fa fa-save"></i> حفظ </button>
                     </div>
                 </form>
             </div>

@@ -13,14 +13,17 @@ use App\Http\Controllers\ProjectController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+\Illuminate\Support\Facades\Auth::routes([
+    'reset' => false,
+    'verify' => false,
+    'register' => false,
+]);
 Route::get('/',[ProjectController::class,'index']);
 
     Route::resource('project',ProjectController::class);
     Route::get('projectt/search',[ProjectController::class,'search'])->name('project.search');
     Route::get('project/create-update/{id}',[ProjectController::class,'createUpdateProject'])->name('project.createUpdate');
-
-Route::put('target/update/{id}',[ProjectController::class,'target_update'])->name('target.update');
+    Route::put('target/update/{id}',[ProjectController::class,'target_update'])->name('target.update');
     Route::put('status/update/{id}',[ProjectController::class,'status_update'])->name('status.update');
 
 
@@ -29,3 +32,7 @@ Route::put('target/update/{id}',[ProjectController::class,'target_update'])->nam
 //Route::post('attachment/{indexd}',ProjectController::class);
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

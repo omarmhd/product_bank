@@ -470,10 +470,10 @@
                                 </select>
 
                                 <div class="main-custom-input mt-2">
-                                    <input name="reason_status" type="text" placeholder="توضيح السبب">
+                                    <input name="reason_status" type="text" placeholder="توضيح السبب" value="{{$project->reason_status}}">
                                 </div>
                                 <div class="main-custom-input mt-2 ">
-                                    <textarea name="notes" id="" cols="37" rows="5" placeholder="ملاحظات"></textarea>
+                                    <textarea name="notes" id="" cols="37" rows="5" placeholder="ملاحظات" >{{$project->notes}}</textarea>
                                     <!-- <input type="text" class="note" > -->
                                 </div>
                                 <div class="upload">
