@@ -222,7 +222,7 @@
                                          </svg>
                                      </span>
                                      <div class="actions">
-                                         <span class="remove">
+                                         <span class="remove" >
                                              <svg id="outline-delete_forever-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                                  <g id="Bounding_Boxes">
                                                    <path id="Path_2320" data-name="Path 2320" d="M0,0H24V24H0Z" fill="none"/>
@@ -373,7 +373,7 @@
                                             </svg>
                                         </span>
                                         <div class="actions">
-                                            <span class="remove">
+                                            <span class="remove delete-btn-target" data-id="{{$project->id}}">
                                                 <svg id="outline-delete_forever-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                                     <g id="Bounding_Boxes">
                                                       <path id="Path_2320" data-name="Path 2320" d="M0,0H24V24H0Z" fill="none"/>
@@ -683,6 +683,47 @@
 
 
         })
+
+        $('.delete-btn-target').click(function (){
+
+
+
+            Swal.fire({
+                title: 'توضيح سبب الحذف ',
+                input: 'text',
+                showCancelButton: true,
+                confirmButtonText: 'تأكيد',
+                cancelButtonText: 'إلغاء',
+                inputValidator: (value) => {
+                        return !value && 'لم تقم بإدخال سبب الحذف !'
+                    },
+            }).then((result,text) => {
+                if (result.isConfirmed) {
+                    let id=$(this).data('id')
+                    var url ="{{route('target.destroy',['id'=>':id'])}}"
+                    url=url.replace(':id',id)
+                    $.ajax({
+                        type:'get',
+                        url:url,
+                        data: {note: "بببب"},
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: (data) => {
+
+                            if(data.status="succeess") {
+
+                                alert(2)
+
+
+                            }
+                        },
+                    })
+
+
+                }})
+
+                })
 
 
     </script>

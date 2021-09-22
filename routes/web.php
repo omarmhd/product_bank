@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +18,17 @@ use App\Http\Controllers\ProjectController;
     'verify' => false,
     'register' => false,
 ]);
-Route::get('/',[ProjectController::class,'index']);
+Route::get('/', [ProjectController::class, 'index']);
 
-    Route::resource('project',ProjectController::class);
-    Route::get('projectt/search',[ProjectController::class,'search'])->name('project.search');
-    Route::get('project/create-update/{id}',[ProjectController::class,'createUpdateProject'])->name('project.createUpdate');
-    Route::put('target/update/{id}',[ProjectController::class,'target_update'])->name('target.update');
-    Route::put('status/update/{id}',[ProjectController::class,'status_update'])->name('status.update');
-
-
+Route::resource('project', ProjectController::class);
+Route::get('projectt/search', [ProjectController::class, 'search'])->name('project.search');
+Route::get('project/create-update/{id}', [ProjectController::class, 'createUpdateProject'])->name('project.createUpdate');
+Route::put('target/update/{id}', [ProjectController::class, 'target_update'])->name('target.update');
+Route::put('status/update/{id}', [ProjectController::class, 'status_update'])->name('status.update');
+Route::get('target/destroy/{id}', [ProjectController::class, 'target_destroy'])->name('target.destroy');
 
 //attachments
 //Route::post('attachment/{indexd}',ProjectController::class);
-
 
 
 Auth::routes();

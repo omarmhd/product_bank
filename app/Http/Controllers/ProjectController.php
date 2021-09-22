@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
+use App\Models\Log;
 use App\Models\Project;
+use App\Models\Target;
 use App\services\FilesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -234,6 +236,20 @@ class ProjectController extends Controller
         }
 
 
+    }
+
+    public function target_destroy(Request $request,$id){
+
+
+       $log=Log::create([
+           'user_id'=>1,
+           'project_id'=>$id,
+            'event'=>'تعديل الهدف',
+           'note'=>'1'
+       ]);
+
+
+        return response()->json(['status'=>'success']);
     }
 
 }
