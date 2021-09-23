@@ -20,4 +20,5 @@
 
         }
     </style>
+    @stack('css')
 </head>

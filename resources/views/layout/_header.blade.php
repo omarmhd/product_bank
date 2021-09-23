@@ -1,3 +1,36 @@
+<style>
+    .search form{
+         
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+     }
+     .search .btn-search{
+          background: #1e1656;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 0;
+            border: 1px solid transparent;
+      }
+      .search i{
+              position: initial;
+              color: #ffffff;
+              transform: none;
+              /* top: -1px; */
+              /* left: -3px; */
+        }
+      
+      header .nav-bar .items .left-side{
+          align-items: center;
+      }
+      header .nav-bar .items .custom-btn-edit{
+        padding-top: 2px;
+      }
+ </style>
 <header>
     <div class="container">
         <div class="nav-bar">
@@ -12,7 +45,7 @@
                         <form action="{{route('project.search')}}" method="GET">
 
                         <input type="text" placeholder="بحث ..." name="search">
-                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i> search</button>
+                     <button type="submit" class="btn btn-light btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
 
