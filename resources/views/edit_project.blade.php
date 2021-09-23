@@ -591,9 +591,9 @@
     {{-- @dd(now()->format('Y-m-d h:i:s')); --}}
     @php
     // (0 day)start<--------------------origin(now)------------------->target(120 day)
-    $start = new DateTime('2021-09-23 00:00:00');
+    $start = new DateTime('2021-09-23 12:23:00');
     $origin = new DateTime(now()->format('Y-m-d H:i:s'));
-    $target = new DateTime('2021-09-23 13:19:00');
+    $target = new DateTime('2021-09-23 14:23:00');
 
     $diff_time_start = $start->diff($target);
     $diff_time_origin = $origin->diff($target);
@@ -612,7 +612,7 @@
     }
   
     // dd($seconds_final,$seconds , $seconds_now);
-    $seconds_final = ($seconds_final / $seconds) * 100;//get current percentage from start datetime to now datetime for fill color
+    $seconds_final = ($seconds_final / $seconds) * 200;//get current percentage from start datetime to now datetime for fill color
     @endphp
 @endsection
 
@@ -623,11 +623,11 @@
         let seconds = {{ $seconds }};
         let seconds_final = {{ $seconds_final }};
         getComputedStyle(document.documentElement).getPropertyValue('--first-class-width').replace('%', '');
-        let increase = 100 / seconds;
+        let increase = 200 / seconds;
         let width_path_product = seconds_final;
         var interval = setInterval(() => {
             width_path_product += increase;
-            if (width_path_product >= 100) {
+            if (width_path_product >= 200) {
                 clearInterval(interval);
             }
             document.documentElement.style.setProperty('--first-class-width', width_path_product + '%');
