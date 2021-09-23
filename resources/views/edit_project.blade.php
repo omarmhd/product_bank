@@ -593,13 +593,13 @@
     // (0 day)start<--------------------origin(now)------------------->target(120 day)
     $start = new DateTime('2021-09-23 00:00:00');
     $origin = new DateTime(now()->format('Y-m-d H:i:s'));
-    $target = new DateTime('2021-09-23 13:10:00');
+    $target = new DateTime('2021-09-23 13:19:00');
 
     $diff_time_start = $start->diff($target);
     $diff_time_origin = $origin->diff($target);
 
     $seconds = (($diff_time_start->days * 24 + $diff_time_start->h) * 60 + $diff_time_start->i) * 60 + $diff_time_start->s;
-    if($diff_time_origin->invert == 0){
+    if($diff_time_origin->invert == 0){//if current time less than target
         $seconds_now = (($diff_time_origin->days * 24 + $diff_time_origin->h) * 60 + $diff_time_origin->i) * 60 + $diff_time_origin->s;
     }else{
         $seconds_now = 0;
