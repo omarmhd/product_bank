@@ -451,6 +451,9 @@ footer .footer > div, .home .content .bottom .card-1 .footer-card, .home .conten
 .upload-input {
   position: relative;
 }
+.upload-input div {
+  flex-grow: 1 !important;
+}
 .upload-input input {
   text-indent: 80px;
 }
@@ -487,7 +490,7 @@ footer .footer > div, .home .content .bottom .card-1 .footer-card, .home .conten
   align-items: center;
   column-gap: calc(var(--varSpace) * 6);
 }
-.input-section .main-custom-input input:first-child {
+.input-section .main-custom-input div:first-child {
   flex: 0 0 60%;
 }
 .input-section .main-custom-input input {

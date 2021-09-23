@@ -90,8 +90,10 @@
                         <div class="main-custom-input upload-input clone d-none mb-3">
                             <input type="file" required class="d-none" id="file-upload" name="attachment[]" disabled>
                             <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
+                           <div>
                             <input type="text" required placeholder="اسم الملف" name="attachment_name[]" disabled>
-                            <i class="fa fa-times px-3 new-remove" style="margin-left: -33px;" aria-hidden="true"></i>
+                           </div>
+                            <i class="fa fa-times  new-remove"  aria-hidden="true"></i>
                         </div>
 
                         <div class="cards">
@@ -99,9 +101,11 @@
 
                                 <input type="file" class="d-none" id="file-upload" name="attachment[]">
                                 <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                                <input type="text" placeholder="اسم الملف" name="attachment_name[]">
+                                <div>
+                                    <input type="text" placeholder="اسم الملف" name="attachment_name[]">
+                                </div>
                                 {{--                                <button class="btn custom-btn-edit upload-file-btn ">رفع</button>--}}
-                                <i class="fa fa-times px-3 new-remove" style="opacity: 0;" aria-hidden="true"></i>
+                                <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
                             </div>
 
                         </div>
