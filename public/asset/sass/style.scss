@@ -454,6 +454,9 @@ transform: rotate(45deg);
 }
 .upload-input{
     position: relative;
+    div{
+        flex-grow: 1 !important;
+    }
     input{
         text-indent: 80px;
         @media (max-width:992px) {
@@ -495,7 +498,7 @@ transform: rotate(45deg);
         display: flex;
         align-items: center;
         @include size(--varSpace, 'column-gap', 6);
-        input:first-child{
+        div:first-child{
             flex:0 0 60%;
         }
         input{
@@ -511,6 +514,7 @@ transform: rotate(45deg);
             }
         }
     }
+    
     
 }
 .search {
@@ -1085,6 +1089,7 @@ header {
             @include size(--varSpace,'font-size',14);
     }
     .upload-input{
+      
         input{
             text-indent: 84px !important;
         }

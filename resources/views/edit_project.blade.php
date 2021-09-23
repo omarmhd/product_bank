@@ -1,4 +1,28 @@
 @extends('layout.app')
+@push('css')
+    <style>
+        :root{
+            --first-class-width:0%;
+        }
+        .post-container .header figure img{
+            height: inherit;
+        }
+        .edit-product .post-container .footer .path-product .first{
+            position: relative;
+            background-color: #8e2f8d;
+        }
+        .edit-product .post-container .footer .path-product .first::before {
+            position: absolute;
+            content: '';
+            background-color: #1e1656;
+            width: var(--first-class-width);
+            height: 100%;
+        }
+        .edit-product .post-container .footer .path-product .first h6{
+            z-index: 1;
+        }
+    </style>
+@endpush
 @section('content')
         <section class="details-section bg-container edit-product">
             <div class="border-bottom-c">
@@ -43,7 +67,8 @@
                         <div class="path-product">
                             <h2>رحلة المنتج</h2>
                             <div class="d-flex justify-content-between visit">
-                                <div class="first">
+                                <div class="first" >
+                                   
                                     <h6>البداية</h6>
                                     <h6>120يوم</h6>
                                 </div>
@@ -511,8 +536,16 @@
 @push('js')
 
     <script>
-
-
+        //width path product
+        getComputedStyle(document.documentElement).getPropertyValue('--first-class-width').replace('%', '');
+        let width_path_product = 0;
+       var interval = setInterval(() => {
+             document.documentElement.style.setProperty('--first-class-width', width_path_product++ + '%');
+             if(width_path_product>100){
+                clearInterval(interval);
+             }
+        }, 100);
+      
         function loadIcon(){
             $('.spinner-border').show();
         }
