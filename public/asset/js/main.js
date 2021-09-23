@@ -1,3 +1,4 @@
+
 $('.btn-nav').on('click',function(){
     $('.aside-bar-menu').css("right", 0).css("opacity", 1);
     $('html,body').css('overflow-y','hidden');
@@ -21,6 +22,23 @@ $('.fade,.close').on('click', function () {
             $('html,body').css('overflow-y', '');
         }
     }, 300)
+});
+$(function () {
+    $('.nubmer-of').each(function(){
+        var total = parseInt($(this).children('small').html(), 10);
+        var goal = parseInt($(this).children('span').html(), 10);
+        total = isNaN(total) ? 0 : total;
+        goal = (isNaN(goal) || goal == 0) ? 1 : goal;
+        var percentage_text = Math.round((total / goal) * 100);
+        var percentage = Math.round((total / goal) * 24);
+        var circles = $(this).siblings('.percentage').children('svg').children('#circles_group').children();
+        var text = $(this).siblings('.percentage').children('svg').children('.text-svg');
+        circles.removeClass('active-circle-svg');
+        for (let index = 0; index < percentage; index++) {
+            circles.eq(index).addClass('active-circle-svg');
+        }
+        text.html(percentage_text + '%');
+    });
 });
 
 $(document).on('keyup', '.goal,.total', function () {
