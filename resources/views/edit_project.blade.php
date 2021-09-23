@@ -591,17 +591,27 @@
     {{-- @dd(now()->format('Y-m-d h:i:s')); --}}
     @php
     // (0 day)start<--------------------origin(now)------------------->target(120 day)
-    $start = new DateTime('2021-05-23 00:00:00');
-    $origin = new DateTime(now()->format('Y-m-d h:i:s'));
-    $target = new DateTime('2021-09-23 13:00:00');
+    $start = new DateTime('2021-09-23 00:00:00');
+    $origin = new DateTime(now()->format('Y-m-d H:i:s'));
+    $target = new DateTime('2021-09-23 13:10:00');
 
     $diff_time_start = $start->diff($target);
     $diff_time_origin = $origin->diff($target);
 
     $seconds = (($diff_time_start->days * 24 + $diff_time_start->h) * 60 + $diff_time_start->i) * 60 + $diff_time_start->s;
-    $seconds_now = (($diff_time_origin->days * 24 + $diff_time_origin->h) * 60 + $diff_time_origin->i) * 60 + $diff_time_origin->s;
-
-    $seconds_final = $seconds - $seconds_now;
+    if($diff_time_origin->invert == 0){
+        $seconds_now = (($diff_time_origin->days * 24 + $diff_time_origin->h) * 60 + $diff_time_origin->i) * 60 + $diff_time_origin->s;
+    }else{
+        $seconds_now = 0;
+    }
+   
+    if($seconds_now != 0){
+        $seconds_final = ($seconds - $seconds_now);
+    }else{
+        $seconds_final = $seconds;
+    }
+  
+    // dd($seconds_final,$seconds , $seconds_now);
     $seconds_final = ($seconds_final / $seconds) * 100;//get current percentage from start datetime to now datetime for fill color
     @endphp
 @endsection
@@ -612,7 +622,7 @@
         //width path product
         let seconds = {{ $seconds }};
         let seconds_final = {{ $seconds_final }};
-
+        console.log()
         getComputedStyle(document.documentElement).getPropertyValue('--first-class-width').replace('%', '');
         let increase = 100 / seconds;
         let width_path_product = seconds_final;
