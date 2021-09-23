@@ -169,7 +169,6 @@ class ProjectController extends Controller
             'target_number.*' => 'required|numeric',//numeric
             'result.*' =>  'required|numeric',//numeric
             'note.*'=>'required'
-
         ],[
         ]);
 
@@ -184,10 +183,17 @@ class ProjectController extends Controller
             $targets[$key]['result'] = $request->result[$key];
             $targets[$key]['percent_result'] = round(($request->result[$key] / $request->target_number[$key]) * 100);
             $targets[$key]['note'] = $request->note[$key];
+
+            Log::updateOrCreate(['note'=>$request->note[$key],'project_id'=>$id],[
+                'user_id'=>1,
+                'project_id'=>$id ,
+                'event'=>'عامل',
+                'note'=>$request->note[$key]
+            ]);
         }
+
         $project = Project::find($id);
         $project->targets()->delete();
-
         $target = $project->targets()->createMany(
             $targets
         );
@@ -242,14 +248,29 @@ class ProjectController extends Controller
 
 
        $log=Log::create([
-           'user_id'=>1,
-           'project_id'=>$id,
-            'event'=>'تعديل الهدف',
-           'note'=>'1'
+            'user_id'=>1,
+            'project_id'=>$request->project_id ,
+            'event'=>'حذف عامل',
+            'note'=>$request->note
        ]);
+       $target=Target::find($id)->delete();
 
 
-        return response()->json(['status'=>'success']);
+        if (!$target){
+            return response()->json(['status'=>'error','message'=>"خطأ في عملية الحذف"]);
+    }
+        return response()->json(['status'=>'success','message'=>"تم الحذف بنجاح "]);
+
+    }
+
+
+    public function log(){
+        $logs=Log::all();
+
+        return view('log',compact('logs'));
+
+
+
     }
 
 }
