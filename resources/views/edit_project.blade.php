@@ -622,7 +622,6 @@
         //width path product
         let seconds = {{ $seconds }};
         let seconds_final = {{ $seconds_final }};
-        console.log()
         getComputedStyle(document.documentElement).getPropertyValue('--first-class-width').replace('%', '');
         let increase = 100 / seconds;
         let width_path_product = seconds_final;
