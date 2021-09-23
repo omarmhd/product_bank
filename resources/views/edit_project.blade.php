@@ -530,22 +530,42 @@
     @include('layout.modals.review')
 
 
+@php
+         $origin = new DateTime('2009-09-23 14:00:00');
+         $target = new DateTime('2021-09-23 14:01:00');
+         $diff_time = $origin->diff($target);
 
+         $seconds = (((((($diff_time->days)*24)+$diff_time->h)*60)+$diff_time->i)*60)+$diff_time->s; 
+@endphp
 @endsection
 
 @push('js')
 
     <script>
+        
         //width path product
+        let seconds = {{ $seconds }};
+        
         getComputedStyle(document.documentElement).getPropertyValue('--first-class-width').replace('%', '');
-        let width_path_product = 0;
+        let increase = 100/seconds;
+        let width_path_product = increase;
        var interval = setInterval(() => {
-             document.documentElement.style.setProperty('--first-class-width', width_path_product++ + '%');
-             if(width_path_product>100){
+             width_path_product += increase;
+             if(width_path_product>=100){
                 clearInterval(interval);
              }
-        }, 100);
+             document.documentElement.style.setProperty('--first-class-width', width_path_product + '%');
+           
+        }, 1000);
       
+
+
+
+
+
+
+
+        
         function loadIcon(){
             $('.spinner-border').show();
         }
