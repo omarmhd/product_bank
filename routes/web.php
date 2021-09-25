@@ -26,7 +26,7 @@ Route::get('project/create-update/{id}', [ProjectController::class, 'createUpdat
 Route::put('target/update/{id}', [ProjectController::class, 'target_update'])->name('target.update');
 Route::put('status/update/{id}', [ProjectController::class, 'status_update'])->name('status.update');
 Route::delete('target/destroy/{id}', [ProjectController::class, 'target_destroy'])->name('target.destroy');
-Route::get('log', [ProjectController::class, 'log'])->name('target.destroy');
+Route::get('log', [ProjectController::class, 'log'])->name('log');
 
 //attachments
 //Route::post('attachment/{indexd}',ProjectController::class);

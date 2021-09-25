@@ -1,6 +1,6 @@
 <style>
     .search form{
-         
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,7 +23,7 @@
               /* top: -1px; */
               /* left: -3px; */
         }
-      
+
       header .nav-bar .items .left-side{
           align-items: center;
       }
@@ -38,7 +38,7 @@
                 <a href="index.html">بنك المنتجات</a>
 
                 <div class="left-side">
-                    <a href="new-project.html" class="btn custom-btn-edit">مشروع جديد</a>
+                    <a href="{{route('project.create')}}" class="btn custom-btn-edit">مشروع جديد</a>
 
 
                     <div class="search">
@@ -61,7 +61,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <a href="index.html" class="dropdown-item">مشاريعي</a>
-                            <a href="log.html" class="dropdown-item">التدقيق</a>
+                            <a href="{{route('log')}}" class="dropdown-item">التدقيق</a>
                             <a href="#" class="dropdown-item">حسابي</a>
                         </div>
                     </div>

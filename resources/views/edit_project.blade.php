@@ -68,7 +68,7 @@
                             <h2>رحلة المنتج</h2>
                             <div class="d-flex justify-content-between visit">
                                 <div class="first" >
-                                   
+
                                     <h6>البداية</h6>
                                     <h6>120يوم</h6>
                                 </div>
@@ -545,7 +545,7 @@
                 clearInterval(interval);
              }
         }, 100);
-      
+
         function loadIcon(){
             $('.spinner-border').show();
         }
@@ -746,8 +746,15 @@
                         data: {note:"text",project_id:"{{$project->id}}"},
                         success: (data) => {
                             if(data.status) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: data.status,
+                                    title: data.message,
+                                    showConfirmButton: false,
+                                    timer: 1600
+                                })
                                 $(this).parent().parent().parent().fadeOut(300, function () { $(this).remove(); })
-                                alert(data.status)
+
 
                             }
                         },
@@ -761,3 +768,6 @@
 
     </script>
 @endpush
+
+
+
