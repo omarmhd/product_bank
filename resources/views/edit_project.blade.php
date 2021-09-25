@@ -1,16 +1,19 @@
 @extends('layout.app')
 @push('css')
     <style>
-        :root{
-            --first-class-width:0%;
+        :root {
+            --first-class-width: 0%;
         }
-        .post-container .header figure img{
+
+        .post-container .header figure img {
             height: inherit;
         }
-        .edit-product .post-container .footer .path-product .first{
+
+        .edit-product .post-container .footer .path-product .first {
             position: relative;
             background-color: #8e2f8d;
         }
+
         .edit-product .post-container .footer .path-product .first::before {
             position: absolute;
             content: '';
@@ -136,9 +139,9 @@
                             <div class="hor-card clone d-none">
                                 <div class="main-custom-input">
 
-                                     <input type="text" disabled name="factor[]" class="title-text" value="" placeholder="العامل">
-                                     <input type="text" disabled name="target_number[]" class="goal" value="100000" placeholder="الهدف">
-                                     <input type="text" disabled name="result[]" class="total" value="90000"  placeholder="النتيجة">
+                                     <input type="text" disabled name="factor[]" class="title-text" value="مبلغ العوائد اكثر من 100000 الف ريال">
+                                     <input type="text" disabled name="target_number[]" class="goal" value="100000">
+                                     <input type="text" disabled name="result[]" class="total" value="90000">
                                      <input type="text" disabled name="note[]" class="note" placeholder="ملاحظات">
                                     <input type="hidden" name="target_name[]" value="">
 
@@ -241,7 +244,7 @@
                                                      class="circle-svg"></ellipse>
                                              </g>
                                              <text class="text-svg" x="47" y="37">
-                                                0%
+                                                40%
 
                                       </text>
                                          </svg>
@@ -398,7 +401,7 @@
                                             </svg>
                                         </span>
                                         <div class="actions">
-                                            <span class=" delete-btn-target" data-id="{{$target->id}}">
+                                            <span class="remove delete-btn-target" data-id="{{$project->id}}">
                                                 <svg id="outline-delete_forever-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                                     <g id="Bounding_Boxes">
                                                       <path id="Path_2320" data-name="Path 2320" d="M0,0H24V24H0Z" fill="none"/>
@@ -698,6 +701,7 @@
                 processData: false,
                 timer: 100,
                 success: (data) => {
+
                     if(data.status) {
                         Swal.fire({
                             position: 'center',
@@ -706,14 +710,10 @@
                             showConfirmButton: false,
                             timer: 1600
                         })
-                        if (data.status=="success"){
-                            setTimeout(function () {
-                                location.reload()
-                            } , 1000);
-                        }
-
 
                     }
+
+
                 },
             });
 
@@ -721,6 +721,9 @@
         })
 
         $('.delete-btn-target').click(function (){
+
+
+
             Swal.fire({
                 title: 'توضيح سبب الحذف ',
                 input: 'text',
@@ -730,30 +733,23 @@
                 inputValidator: (value) => {
                         return !value && 'لم تقم بإدخال سبب الحذف !'
                     },
-            }).then((result,value) => {
+            }).then((result,text) => {
                 if (result.isConfirmed) {
                     let id=$(this).data('id')
                     var url ="{{route('target.destroy',['id'=>':id'])}}"
-                    url=url.replace(":id",id)
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN':"{{ csrf_token() }}"
-                        }
-                    });
+                    url=url.replace(':id',id)
                     $.ajax({
-                        type:'DELETE',
+                        type:'get',
                         url:url,
-                        data: {note:"text",project_id:"{{$project->id}}"},
+                        data: {note: "بببب"},
+                        cache: false,
+                        contentType: false,
+                        processData: false,
                         success: (data) => {
-                            if(data.status) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: data.status,
-                                    title: data.message,
-                                    showConfirmButton: false,
-                                    timer: 1600
-                                })
-                                $(this).parent().parent().parent().fadeOut(300, function () { $(this).remove(); })
+
+                            if(data.status="succeess") {
+
+                                alert(2)
 
 
                             }
@@ -768,6 +764,3 @@
 
     </script>
 @endpush
-
-
-
