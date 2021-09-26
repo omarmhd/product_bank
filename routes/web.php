@@ -28,6 +28,9 @@ Route::put('status/update/{id}', [ProjectController::class, 'status_update'])->n
 Route::delete('target/destroy/{id}', [ProjectController::class, 'target_destroy'])->name('target.destroy');
 Route::get('log', [ProjectController::class, 'log'])->name('log');
 
+
+Route::post('upload/file', [ProjectController::class, 'upload_file'])->name('upload_file');
+
 //attachments
 //Route::post('attachment/{indexd}',ProjectController::class);
 

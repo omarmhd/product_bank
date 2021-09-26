@@ -34,18 +34,20 @@ class ProjectController extends Controller
     public function store(Request $request, FilesService $filesService)
     {
 
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'image' => 'required|image',
+            'image' => 'nullable',
             'description' => 'required',
-            'target_name.*' => 'required',
-            'target_number.*' => 'required',
+            'target_name.*' => 'required|numeric',
+            'target_number.*' => 'required|numeric',
             'attachment.*' => 'required',
             'attachment_name.*' => 'required',
             'factor.*' => 'required',
 
-        ]);
-
+        ],['name.required'=>'اسم المشروع مطلوب','description.required'=>'وصف المشروع مطلوب']);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
         $data = $request->except(['factor', 'target_name', 'target_number', 'attachment', 'attachment_name']);
         $data['status'] = "قيد التنفيذ";
         $data['project_health'] = "عالية";
@@ -75,9 +77,10 @@ class ProjectController extends Controller
 
 
         if ($project) {
-            return redirect()->route('project.index')->with('success', " تم إضافة مشروع$project->name");
+            return response()->json(['status' => 'success', 'message' => " تم إضافة مشروع$project->name",'redirect'=>route('project.index')]);
+
         } else {
-            return redirect()->back()->with('error', 'خطأ في اضافة المشروع ');
+            return response()->json(['status' => 'error', 'message' => "خطأ في اضافة المشروع"]);
 
         }
 
@@ -272,5 +275,14 @@ class ProjectController extends Controller
 
 
     }
+
+
+public  function  upload_file(Request  $request){
+        if ($request->file){
+
+        }
+
+
+}
 
 }

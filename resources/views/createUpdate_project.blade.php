@@ -38,6 +38,8 @@
                     <div class="main-custom-input mt-4">
                         <input type="text" name="name" placeholder="اسم المشروع" value="{{$projects->name}}" >
                     </div>
+
+
                     <div class="main-custom-input mt-4">
                         <textarea name="description" id="" class="w-100" data-error rows="5"
                                   placeholder="وصف المشروع" >{{$projects->description}}</textarea>

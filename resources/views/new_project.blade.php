@@ -43,57 +43,15 @@
                                   placeholder="وصف المشروع"></textarea>
                     </div>
                     <div class="input-section mt-4">
-                        <h2>المستهدفات</h2>
-                        <p>:مثال
-                            العامل: عدد تحميلات التطبيق 5000 تحميل , اسم الهدف: عدد التحميلات , الهدف :5000 </p>
-                        <div class="main-custom-input mb-3 clone d-none" style="display: none">
-                            <div>
-                                <input type="text" class="factor" required placeholder="العامل" disabled id="factor"
-                                       name="factor[]">
-                            </div>
-                            <div>
-                                <input type="text" class="target_name" required placeholder="اسم الهدف" disabled id="target_name"
-                                       name="target_name[]">
-                            </div>
-                            <div>
-                                <input type="text" class="target_number" required placeholder="الهدف(رقم)" disabled
-                                       id="target_number" name="target_number[]">
-
-                            </div>
-                            <i class="fa fa-times  new-remove" aria-hidden="true"></i>
-                        </div>
-
-                        <div class="cards">
-                            <div class="main-custom-input mb-3">
-                                <div>
-                                    <input type="text" class="factor" required placeholder="العامل" name="factor[]" id="factor">
-                                </div>
-                                <div>
-                                    <input type="text" class="target_name" required placeholder="اسم الهدف" name="target_name[]"
-                                           id="target_name">
-                                </div>
-                                <div>
-                                    <input type="text" class="target_number" required placeholder="الهدف(رقم)"
-                                           name="target_number[]" id="target_number">
-                                </div>
-                                <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
-                            </div>
-
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-custom btn-add "> + إضافة عامل جديد</button>
-                        </div>
-                    </div>
-                    <div class="input-section mt-4">
                         <h2>المرفقات</h2>
                         <p>إضافة المرفقات الخاصة بالمشروع مثل خطة العمل و الملفات المتعلقة بالمشروع </p>
                         <div class="main-custom-input upload-input clone d-none mb-3">
-                            <input type="file" required class="d-none" id="file-upload" name="attachment[]" disabled>
+                            <input type="file" required="" class="d-none" id="file-upload" name="attachment[]" disabled="">
                             <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                           <div>
-                            <input type="text" required placeholder="اسم الملف" name="attachment_name[]" disabled>
-                           </div>
-                            <i class="fa fa-times  new-remove"  aria-hidden="true"></i>
+                            <div>
+                                <input type="text" required="" placeholder="اسم الملف" name="attachment_name[]" disabled="">
+                            </div>
+                            <i class="fa fa-times  new-remove" aria-hidden="true"></i>
                         </div>
 
                         <div class="cards">
@@ -104,11 +62,18 @@
                                 <div>
                                     <input type="text" placeholder="اسم الملف" name="attachment_name[]">
                                 </div>
-                                {{--                                <button class="btn custom-btn-edit upload-file-btn ">رفع</button>--}}
+
                                 <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
                             </div>
 
-                        </div>
+                            <div class="main-custom-input upload-input mb-3" style="display: flex;">
+                                <input type="file" required="" class="d-none" id="file-upload" name="attachment[]" disabled="">
+                                <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
+                                <div>
+                                    <input type="text" required="" placeholder="اسم الملف" name="attachment_name[]">
+                                </div>
+                                <i class="fa fa-times  new-remove" aria-hidden="true"></i>
+                            </div></div>
                         <div class="text-center">
                             <button type="button" class="btn btn-custom btn-add  "> + إضافة ملف جديد</button>
                         </div>
@@ -132,41 +97,106 @@
 
 
 
-            var validator = $('#form1').validate({
 
-                errorElement: 'div',
-                errorClass: 'validation-error-message help-block form-helper bold',
 
-                rules: {},
-
-                errorPlacement: function (error, element) {
-                    if (element.parent('.main-custom-input').length) {
-                        error.insertBefore(element);
-                    } else {
-                        error.insertAfter(element);
-                    }
-
-                },
-
-                submitHandler: function (form) {
-                    form.submit();
-                }
-            });
             $('#form1').on('submit', function (e) {
-                e.preventDefault();
-                $('input.target_name').each(function () { $(this).rules('add', { required: true});   });
-                $('input.factor').each(function () { $(this).rules('add', { required: true});   });
-                $('input.target_number').each(function () { $(this).rules('add', { required: true});   });
+                e.preventDefault()
+                var  url="{{route('project.store')}}"
+                var formData = new FormData(this);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $("input[name=_token]").val()
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+
+                        if(data.status=="success") {
+
+                            let timerInterval
+                            Swal.fire({
+                                title: 'يتم رفع الملفات ',
+                                html: 'سيتم إغلاق النافذة بعد <b></b> ثانية.',
+                                timer: 2000,
+                                allowOutsideClick: false,
+
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer().querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal.getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    $('.spinner-border').hide();
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: data.status,
+                                        title: data.message,
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    })
 
 
-                if (!$(this).valid()) {
-                    validator.focusInvalid();
+                                    setTimeout(function () {
+                                        window.location = data.redirect
+                                    }, 1000);
 
-                    return false;
+                                }
 
-                }
+
+                            })
+                        }else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: data.status,
+                                title: data.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+
+                        }
+                    },
+                })
+            })
+
+
+
+            //upload files
+
+            $('.upload-file-btn').click(function (){
+                var form_data = new FormData();
+                form_data.append('file',$(this).parent().find("input[name=attachment]").files[0])
+                $.ajax({
+                    url:"upload.php",
+                    method:"POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend:function(){
+                        $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+                    },
+                    success:function(data)
+                    {
+                        $('#uploaded_image').html(data);
+                    }
+                });
 
             })
+
 
         })
 
