@@ -254,6 +254,8 @@ class ProjectController extends Controller
             'note'=>$request->note
        ]);
        $target=Target::find($id)->delete();
+
+
         if (!$target){
             return response()->json(['status'=>'error','message'=>"خطأ في عملية الحذف"]);
     }
