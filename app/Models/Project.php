@@ -12,12 +12,17 @@ class Project extends Model
     protected $guarded=[];
 
     public  function targets(){
-        return $this->hasMany(Target::class);
-
-    }
+        return $this->hasMany(Target::class);}
 
     public  function attachments(){
         return $this->hasMany(Attachment::class);
 
     }
+
+    public function likes(){
+
+        return $this->hasMany(Like::class)->sum('like');
+
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
+use App\Models\Like;
 use App\Models\Log;
 use App\Models\Project;
 use App\Models\Target;
@@ -17,6 +18,7 @@ class ProjectController extends Controller
         $projects = Project::all();
         return view('index', compact('projects'));
     }
+
 
     public function search(Request $request){
         $projects = Project::where('name', 'LIKE', '%'.$request->search.'%' )->Orwhere('description','LIKE', '%'.$request->search.'%' )->get();
@@ -269,20 +271,33 @@ class ProjectController extends Controller
 
     public function log(){
         $logs=Log::all();
-
         return view('log',compact('logs'));
+    }
+    public function like($id){
+        $like= Like::where('project_id',$id)->where('user_id',1);
+        $color="#1E1656";
+
+            if (!$like->first()){
+            $like=Like::create([
+            'project_id'=>$id,
+            'user_id'=>1,
+            'like'=>1
+            ]);
+            $color="#0056B3";
+
+            } else{
+                $like=$like->delete();
+
+            }
+        $count_like=Like::where('project_id',$id)->sum('like');
+
+        return response()->json(['status'=>'success','sum'=>$count_like,'color'=>$color]);
+
 
 
 
     }
 
 
-public  function  upload_file(Request  $request){
-        if ($request->file){
-
-        }
-
-
-}
 
 }

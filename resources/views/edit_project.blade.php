@@ -55,8 +55,8 @@
                         <span class="project-status">حالة المشروع :  {{$project->status}}</span>
                         <span class="project-health"> صحة المشروع: {{$project->project_health}}</span>
                         <span class="last-edit">اخر تعديل:{{$project->updated_at->toDateString()}}</span>
-                        <a href="#" class="like" id="like">
-                            5
+                        <a href="javascript:void(0)" class="like" id="like" data-id="{{$project->id}}">
+                           <span class="like-count">{{$project->likes()}}</span>
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -761,9 +761,46 @@
                     })
 
 
+
+
+
                 }})
 
         })
+
+
+        $(document).on('click','.like',function (){
+
+
+
+            var id=$(this).data('id')
+            var url="{{route('like',['id'=>':id'])}}"
+            url= url.replace(':id',id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN':"{{ csrf_token() }}"
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data:{_token:"{{ csrf_token() }}"},
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    if (data.status) {
+
+                        $('.like-count').text(data.sum)
+                        $(this).css({color: data.color})
+                    }
+
+
+
+                },
+            })
+
+        });
 
 
     </script>

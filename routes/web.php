@@ -31,7 +31,11 @@ Route::get('log', [ProjectController::class, 'log'])->name('log');
 
 Route::post('upload/file', [ProjectController::class, 'upload_file'])->name('upload_file');
 
+Route::post('like/{id}', [ProjectController::class, 'like'])->name('like');
+
 //attachments
+
+
 //Route::post('attachment/{indexd}',ProjectController::class);
 
 
