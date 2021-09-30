@@ -43,6 +43,49 @@
                                   placeholder="وصف المشروع"></textarea>
                     </div>
                     <div class="input-section mt-4">
+                        <h2>المستهدفات</h2>
+                        <p>:مثال
+                            العامل: عدد تحميلات التطبيق 5000 تحميل , اسم الهدف: عدد التحميلات , الهدف :5000 </p>
+                        <div class="main-custom-input mb-3 clone d-none" style="display: none">
+                            <div>
+                                <input type="text" class="factor" required placeholder="العامل" disabled id="factor"
+                                       name="factor[]">
+                            </div>
+                            <div>
+                                <input type="text" class="target_name" required placeholder="اسم الهدف" disabled id="target_name"
+                                       name="target_name[]">
+                            </div>
+                            <div>
+                                <input type="text" class="target_number" required placeholder="الهدف(رقم)" disabled
+                                       id="target_number" name="target_number[]">
+
+                            </div>
+                            <i class="fa fa-times  new-remove" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="cards">
+                            <div class="main-custom-input mb-3">
+                                <div>
+                                    <input type="text" class="factor" required placeholder="العامل" name="factor[]" id="factor">
+                                </div>
+                                <div>
+                                    <input type="text" class="target_name" required placeholder="اسم الهدف" name="target_name[]"
+                                           id="target_name">
+                                </div>
+                                <div>
+                                    <input type="text" class="target_number" required placeholder="الهدف(رقم)"
+                                           name="target_number[]" id="target_number">
+                                </div>
+                                <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
+                            </div>
+
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-custom btn-add "> + إضافة عامل جديد</button>
+                        </div>
+                    </div>
+
+                    <div class="input-section mt-4">
                         <h2>المرفقات</h2>
                         <p>إضافة المرفقات الخاصة بالمشروع مثل خطة العمل و الملفات المتعلقة بالمشروع </p>
                         <div class="main-custom-input upload-input clone d-none mb-3">

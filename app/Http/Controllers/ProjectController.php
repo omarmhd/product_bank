@@ -16,7 +16,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('index', compact('projects'));
+        $count=$projects->count();
+        return view('index', compact('projects','count'));
     }
 
 
@@ -40,7 +41,7 @@ class ProjectController extends Controller
             'name' => 'required',
             'image' => 'nullable',
             'description' => 'required',
-            'target_name.*' => 'required|numeric',
+            'target_name.*' => 'required',
             'target_number.*' => 'required|numeric',
             'attachment.*' => 'required',
             'attachment_name.*' => 'required',
@@ -162,8 +163,26 @@ class ProjectController extends Controller
     {
 
         $project = Project::findOrFail($id);
+//        $create_date=$project->created_at;
+//        $first_travel=120;
+//        $secand_travel=200;
+        $start = new \DateTime($project->created_at );
+        $origin = new \DateTime(now()->format('Y-m-d H:i:s'));
+        $target = new \DateTime('2022-1-1 14:23:00');
 
-        return view('edit_project', compact('project'));
+        $diff_time_start = $start->diff($target);
+        $diff_time_origin = $origin->diff($target)->invert != 0 ? 0 : $origin->diff($target);
+        $seconds = (($diff_time_start->days * 24 + $diff_time_start->h) * 60 + $diff_time_start->i) * 60 + $diff_time_start->s;
+        $current_day = $origin->diff($start)->days;
+        $seconds_now =is_int($diff_time_origin) ? 0 : (($diff_time_origin->days * 24 + $diff_time_origin->h) * 60 + $diff_time_origin->i) * 60 + $diff_time_origin->s;
+        $seconds_final = $seconds_now != 0 ? ($seconds - $seconds_now) : $seconds ;
+        $seconds_final = ($seconds_final / $seconds) * 200;//get current percentage from start datetime to now datetime for fill color
+
+
+        return view('edit_project', compact('project','seconds_final','seconds','current_day'));
+
+
+
 
     }
 
@@ -232,21 +251,22 @@ class ProjectController extends Controller
                     'type' => 'الدروس المستفادة'
                 ];
                 $attach_create = Attachment::query()->updateOrInsert(['project_id' => $id, 'type' => 'الدروس المستفادة'], $arr_attachment);
-                return response()->json(['status' => 'success', 'message' => "مبارك تم رفع الملف بنجاح لا تعيدها بلاش نزعل"]);
+                return response()->json(['status' => 'success', 'message' => ""]);
             }
         }
 
         if ($request->input('save')) {
 
-            $project = Project::findorfail($id)->update([
+            $project = Project::findorfail($id);
+                   $project->update([
                     'reason_status' => $request->reason_status,
                     'notes' => $request->notes,
                     'status' => $request->status,
-                ]
-            );
-        }
+                ]);
 
+            return response()->json(['status' => 'success', 'message' =>"تم التحديث إلى الحالة    " . "( ".$project->status ."). "]);
 
+    }
     }
 
     public function target_destroy(Request $request,$id){
@@ -297,6 +317,33 @@ class ProjectController extends Controller
 
 
     }
+
+    public function project_evaluation(Request $request,$id){
+        $initial=$request->initial_evaluation;
+        $final=$request->final_evaluation;
+        Project::findorfail($id)->update([
+            'initial_evaluation'=>$initial,
+            'final_evaluation'=>$final
+
+        ]);
+
+
+
+
+    }
+    public function filter(Request $request){
+
+
+
+
+
+    }
+
+
+
+
+
+
 
 
 

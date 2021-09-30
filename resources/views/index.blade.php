@@ -11,13 +11,12 @@
 
                             @else
 
-                                <div class="number-project">عدد المشاريع : 4 </div>
+                                <div class="number-project"> عدد المشاريع :  {{$count}} </div>
                                 <div class="filter">
                                     <i class="fa fa-sliders" aria-hidden="true"></i>
-                                    <select name="sort">
-                                        <option value="1">ترتيب حسب التاريخ</option>
-                                        <option value="1">ترتيب حسب التاريخ</option>
-                                        <option value="1">ترتيب حسب التاريخ</option>
+                                    <select name="sort" class="sort">
+                                        <option value="oldest">ترتيب حسب التاريخ الأقدم </option>
+                                        <option value="latest">ترتيب حسب التاريخ الأحدث </option>
                                     </select>
                                 </div>
                             @endif
@@ -41,7 +40,7 @@
                                             </div>
                                             <div class="footer-card">
                                                 <span>حالة المشروع: {{$project->status}} </span>
-                                                <span> صحة المشروع :حالة المشروع: {{$project->project_health}}</span>
+                                                <span> صحة المشروع : {{$project->project_health}}</span>
                                             </div>
                                         </div>
                                     </a>
@@ -58,3 +57,44 @@
                     </div>
             </section>
 @endsection
+
+
+@push('js')
+    <script>
+
+
+        $(document).ready(function(){
+
+
+            $('.sort').change(function (){
+                filter(date= $(this).val(),project_health="",project_status="")
+
+            });
+
+
+
+
+
+
+
+            function filter(date="",project_health="",project_status=""){
+
+                $.ajax({
+                    url:"{{route('project.filter')}}" ,
+                    type: "get",
+                    data:{
+                        date: date,
+                        project_health: project_health,
+                        project_status: project_status,
+                    },
+                    success: (data) => {
+
+                    }
+                })
+            }
+
+
+        })
+
+    </script>
+@endpush

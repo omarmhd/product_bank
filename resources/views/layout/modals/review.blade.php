@@ -11,36 +11,40 @@
                     <div class="col-12">
                         <h3>التقييم الاولي</h3>
                     </div>
+
+                    <form action="{{route('project.evaluation.update',['id'=>$project->id])}}">
                     <div class="col-10 mx-auto">
                         <div class="custom-checkbox text-left">
-                            <input type="checkbox" id="first" checked>
+                            <input type="checkbox" id="first" checked name="initial_evaluation[]">
                             <span class="checkmark"></span>
                             <label for="first">تم تحقيق اكثر من نصف العوائد المتوقعة</label>
                         </div>
                         <div class="custom-checkbox text-left">
-                            <input type="checkbox" id="s" checked>
+                            <input type="checkbox" id="s" checked  name="initial_evaluation[]">
                             <span class="checkmark"></span>
                             <label for="s">يتم تحديث المشروع و مرفقاته بشكل دوري</label>
                         </div>
                         <div class="custom-checkbox text-left">
-                            <input type="checkbox" id="th" checked>
+                            <input type="checkbox" id="th" checked  name="initial_evaluation[]">
                             <span class="checkmark"></span>
                             <label for="th">تم تحقيق اكثر من نصف عدد التحميلات المتوقع </label>
                         </div>
                         <div class="custom-checkbox text-left">
-                            <input type="checkbox" id="fr" >
+                            <input type="checkbox" id="fr"  name="initial_evaluation[]" >
                             <span class="checkmark"></span>
                             <label for="fr">تم زيارة الموقع اكثر من 2500 مرة </label>
                         </div>
                         <div class="custom-checkbox text-left">
-                            <input type="checkbox" id="fi" checked>
+                            <input type="checkbox" id="fi" checked  name="initial_evaluation[]">
                             <span class="checkmark"></span>
                             <label for="fi">وصول عدد المستخدمين النشطين الي 1000 عميل</label>
                         </div>
                     </div>
                     <div class="col-10  mx-auto">
-                        <button type="button" class="btn btn-custom-login send-btn">ارسال</button>
+                        <button type="submit" class="btn btn-custom-login send-btn">ارسال</button>
                     </div>
+
+                    </form>
                 </div>
             </div>
 

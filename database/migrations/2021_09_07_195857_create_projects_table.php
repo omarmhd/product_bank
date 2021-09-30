@@ -27,6 +27,9 @@ class CreateProjectsTable extends Migration
             $table->text('notes')->nullable();
             $table->date('last_update')->nullable();;
             $table->string('image');
+            $table->string('initial_evaluation')->nullable();
+            $table->string('final_evaluation')->nullable();
+
 
 
             $table->timestamps();

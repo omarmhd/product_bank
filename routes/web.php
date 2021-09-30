@@ -33,12 +33,16 @@ Route::post('upload/file', [ProjectController::class, 'upload_file'])->name('upl
 
 Route::post('like/{id}', [ProjectController::class, 'like'])->name('like');
 
+
+Route::put('evaluation/update/{id}',[ProjectController::class, 'project_evaluation'])->name('project.evaluation.update');
 //attachments
 
 
+Route::get('filter',[ProjectController::class, 'filter'])->name('project.filter');
+
+
+
 //Route::post('attachment/{indexd}',ProjectController::class);
-
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

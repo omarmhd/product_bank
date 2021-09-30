@@ -35,7 +35,7 @@
     <div class="container">
         <div class="nav-bar">
             <div class="items">
-                <a href="index.html">بنك المنتجات</a>
+                <a href="{{route('project.index')}}">بنك المنتجات</a>
 
                 <div class="left-side">
                     <a href="{{route('project.create')}}" class="btn custom-btn-edit">مشروع جديد</a>
@@ -60,7 +60,7 @@
                             محمد خان
                         </button>
                         <div class="dropdown-menu">
-                            <a href="index.html" class="dropdown-item">مشاريعي</a>
+                            <a href="{{route('project.index')}}" class="dropdown-item">مشاريعي</a>
                             <a href="{{route('log')}}" class="dropdown-item">التدقيق</a>
                             <a href="#" class="dropdown-item">حسابي</a>
                         </div>

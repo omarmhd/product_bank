@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 @include('layout._head')
 <body>
+<div class="se-pre-con"></div>
 
 @include('layout._header')
 <div class="container">

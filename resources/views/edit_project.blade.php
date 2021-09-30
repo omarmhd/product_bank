@@ -24,6 +24,8 @@
     </style>
 @endpush
 @section('content')
+    @include('layout.modals.review')
+
     <section class="details-section bg-container edit-product">
         <div class="border-bottom-c">
             <div class="post-container">
@@ -65,14 +67,16 @@
                                                                                                                               aria-hidden="true"></i></a>
                     </div>
                     <div class="path-product">
-                        <h2>رحلة المنتج</h2>
+                        <h2>   رحلة المنتج    :          <span class="text-infos" style="color: #0a6000"> مضى {{$current_day}} يوم </span></h2>
+
                         <div class="d-flex justify-content-between visit">
+
                             <div class="first" >
 
                                 <h6>البداية</h6>
                                 <h6>120يوم</h6>
                             </div>
-                            <div class="rate rate-first" data-toggle="modal" data-target="#rate">
+                            <div class="rate rate-first" data-toggle="modal"  data-target="#rate" style="{{$current_day>='120'?"":"pointer-events: none"}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
                                      viewBox="0 0 53.034 61.224">
                                     <g id="Group_240" data-name="Group 240"
@@ -80,7 +84,7 @@
                                         <g id="Group_239" data-name="Group 239">
                                             <path id="Path_3054" data-name="Path 3054"
                                                   d="M5158.5,2757.58l-25.482,13.467v33.437l25.482,13.2,26.551-13.2v-33.437Z"
-                                                  transform="translate(-4481 -1999.573)" fill="#90268f"
+                                                  transform="translate(-4481 -1999.573)" fill="{{$current_day>='120'?"#1E1656":"#fff"}}"
                                                   stroke="rgba(112,112,112,0.54)" stroke-width="1" />
                                             <path id="Path_3056" data-name="Path 3056"
                                                   d="M5153.717,2757.58l-20.7,10.939v27.161l20.7,10.72,21.568-10.72v-27.161Z"
@@ -95,21 +99,21 @@
                                     </g>
                                 </svg>
                             </div>
-                            <div class="rate rate-final" data-toggle="modal" data-target="#rate">
+                            <div class="rate rate-final" data-toggle="modal" data-target="#rate" style="{{$current_day>='200'?"":"pointer-events: none"}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
-                                     viewBox="0 0 53.034 61.224">
+                                     viewBox="0 0 53.034 61.224" >
                                     <g id="Group_240" data-name="Group 240"
                                        transform="translate(-651.518 -757.444)">
-                                        <g id="Group_239" data-name="Group 239">
+                                        <g id="Group_239" data-name="Group 239" >
                                             <path id="Path_3054" data-name="Path 3054"
                                                   d="M5158.5,2757.58l-25.482,13.467v33.437l25.482,13.2,26.551-13.2v-33.437Z"
-                                                  transform="translate(-4481 -1999.573)" fill="#90268f"
+                                                  transform="translate(-4481 -1999.573)" fill="{{$current_day>='200'?"#1E1656":"#fff"}}"
                                                   stroke="rgba(112,112,112,0.54)" stroke-width="1" />
                                             <path id="Path_3056" data-name="Path 3056"
                                                   d="M5153.717,2757.58l-20.7,10.939v27.161l20.7,10.72,21.568-10.72v-27.161Z"
                                                   transform="translate(-4476.117 -1993.933)" fill="#fff" />
                                         </g>
-                                        <text id="تقييم_الاولي" data-name="تقييم
+                                        <text  id="تقييم_الاولي" data-name="تقييم
                                           الاولي" transform="translate(706  784)" class="rate">
                                             <tspan x="-12.87" y="15">تقييم</tspan>
                                             <tspan y="0"></tspan>
@@ -527,7 +531,6 @@
     </section>
 
 
-    @include('layout.modals.review')
 
 
 
@@ -537,14 +540,21 @@
 
     <script>
         //width path product
+        let seconds = {{ $seconds }};
+        let seconds_final = {{ $seconds_final }};
         getComputedStyle(document.documentElement).getPropertyValue('--first-class-width').replace('%', '');
-        let width_path_product = 0;
+        let increase = 200 / seconds;
+        let width_path_product = seconds_final;
         var interval = setInterval(() => {
-            document.documentElement.style.setProperty('--first-class-width', width_path_product++ + '%');
-            if(width_path_product>100){
+            width_path_product += increase;
+            if (width_path_product >= 200) {
                 clearInterval(interval);
             }
-        }, 100);
+            document.documentElement.style.setProperty('--first-class-width', width_path_product + '%');
+
+        }, 1000);
+
+
 
         function loadIcon(){
             $('.spinner-border').show();
@@ -581,18 +591,21 @@
                         processData: false,
                         success: (data) => {
 
-                            if(data.status) {
-                                Swal.fire(
-                                    data.title,
-                                    "تم تغير الحالة ل " +
-                                    formData.get('status'), data.status
-                                );
-                                var status = $('select[name=status]').find(":selected").text()
-                                var d = new Date();
-                                var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 
-                                $('.project-status').text("حالة المشروع : " + status)
-                                $('.last-edit').text("اخر تعديل : " + strDate)
+                            if(data.status) {
+
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: data.status,
+                                    title: data.message,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                setTimeout(function () {
+                                    location.reload()
+                                }, 1000);
+
+
 
                             }
 
@@ -656,8 +669,6 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
-
-
                                 setTimeout(function () {
                                     location.reload()
                                 }, 1000);
@@ -740,10 +751,12 @@
                             'X-CSRF-TOKEN':"{{ csrf_token() }}"
                         }
                     });
+
+
                     $.ajax({
                         type:'DELETE',
                         url:url,
-                        data: {note:"text",project_id:"{{$project->id}}"},
+                        data: {note:  $('.swal2-input').val(),project_id:"{{$project->id}}"},
                         success: (data) => {
                             if(data.status) {
                                 Swal.fire({

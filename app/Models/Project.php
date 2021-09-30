@@ -18,10 +18,18 @@ class Project extends Model
         return $this->hasMany(Attachment::class);
 
     }
-
     public function likes(){
-
         return $this->hasMany(Like::class)->sum('like');
+    }
+    public function setInitialEvaluationAttribute($value)
+    {
+        $this->attributes['initial_evaluation']=json_encode($value);
+
+    }
+
+    public function getFinalEvaluationAttribute($value)
+    {
+        return $this->attributes['final_evaluation']= json_decode($value);
 
     }
 
