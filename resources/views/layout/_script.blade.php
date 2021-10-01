@@ -18,3 +18,38 @@
 
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.js"></script>
+<script>
+    $(document).on('click','.like',function (){
+
+
+
+        var id=$(this).data('id')
+        var url="{{route('like',['id'=>':id'])}}"
+        url= url.replace(':id',id);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN':"{{ csrf_token() }}"
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data:{_token:"{{ csrf_token() }}"},
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                if (data.status) {
+
+                    $('.like-count').text(data.sum)
+                    $(this).css({color: data.color})
+                }
+
+
+
+            },
+        })
+
+    });
+
+</script>

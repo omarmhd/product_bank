@@ -19,12 +19,20 @@ class ProjectController extends Controller
         $count=$projects->count();
         return view('index', compact('projects','count'));
     }
+    public function myProjects()
+    {
+        $projects = Project::where('user_id',session('user_id'))->get();
+        $count=$projects->count();
+        $type_page="myProjects";
+        return view('index', compact('projects','count','type_page'));
+    }
 
 
     public function search(Request $request){
         $projects = Project::where('name', 'LIKE', '%'.$request->search.'%' )->Orwhere('description','LIKE', '%'.$request->search.'%' )->get();
         $search=$request->search;
-        return view('index',compact('projects','search'));
+        $count=$projects->count();
+        return view('index',compact('projects','search','count'));
 
     }
 
@@ -54,6 +62,7 @@ class ProjectController extends Controller
         $data = $request->except(['factor', 'target_name', 'target_number', 'attachment', 'attachment_name']);
         $data['status'] = "قيد التنفيذ";
         $data['project_health'] = "عالية";
+        $data['user_id']=1;
         if ($request->hasFile('image')) {
             $data['image'] = $filesService->upload($request->image, 'files', 'project-image');
         }
@@ -333,9 +342,11 @@ class ProjectController extends Controller
     }
     public function filter(Request $request){
 
+        $order=$request->date=="oldest"?"asc":"desc";
 
+        $projects =Project::orderby('created_at',$order)->get();
 
-
+        return response()->json(['projects'=>$projects]);
 
     }
 

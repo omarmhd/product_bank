@@ -8,13 +8,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <form action="{{route('test.login')}}" method="get">
                 <div class="row">
-                    <div class="col-12">
-                        <h3>تسجيل الدخول</h3>
-                        <p>سجل دخولك لإضافة المشروع الخاص بك</p>
-                    </div>
-                    <div class="col-12">
-                        <div class="custom-input mb-3">
+                        <div class="col-12">
+                            <h3>تسجيل الدخول</h3>
+                            <p>سجل دخولك لإضافة المشروع الخاص بك</p>
+                        </div>
+                        <div class="col-12">
+                            <div class="custom-input mb-3">
                                 <span>
                                     <svg id="outline-email-24px" xmlns="http://www.w3.org/2000/svg" width="24"
                                          height="24" viewBox="0 0 24 24">
@@ -28,9 +29,9 @@
                                         </g>
                                     </svg>
                                 </span>
-                            <input type="email" class="input-text-custom" placeholder="الايميل">
-                        </div>
-                        <div class="custom-input ">
+                                <input type="email" class="input-text-custom" placeholder="الايميل">
+                            </div>
+                            <div class="custom-input ">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21">
                                         <g id="Outline" transform="translate(-4 -1)">
@@ -41,34 +42,38 @@
                                     </svg>
 
                                 </span>
-                            <input type="password" class="input-text-custom" placeholder="كلمة المرور">
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-between flex-wrap mx-auto mb-3 col-lg-6">
-                        <div class="reset-padding-col">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" id="remember">
-                                <span class="checkmark"></span>
-                                <label for="remember">تذكرني</label>
+                                <input type="password" class="input-text-custom" placeholder="كلمة المرور">
                             </div>
-
-
-
-                            <!-- <label for="rembmer-me">تذكرني</label> -->
-
                         </div>
-                        <div class="reset-padding-col">
-                            <a href="#">
-                                نسيت كلمة المرور
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="col-12">
-                        <button type="button" class="btn btn-custom-login">دخول</button>
-                    </div>
+                        <div class="d-flex justify-content-between flex-wrap mx-auto mb-3 col-lg-6">
+                            <div class="reset-padding-col">
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="remember">
+                                    <span class="checkmark"></span>
+                                    <label for="remember">تذكرني</label>
+                                </div>
+
+
+
+                                <!-- <label for="rembmer-me">تذكرني</label> -->
+
+                            </div>
+                            <div class="reset-padding-col">
+                                <a href="#">
+                                    نسيت كلمة المرور
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-custom-login">دخول</button>
+                        </div>
+
+
+
                 </div>
+                </form>
             </div>
 
         </div>

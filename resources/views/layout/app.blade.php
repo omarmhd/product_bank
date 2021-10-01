@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 
 @include('layout._head')
+@include('layout.modals.login')
 <body>
 <div class="se-pre-con"></div>
 
@@ -14,7 +15,6 @@
 
 
 @include('layout._footer')
-@include('layout.modals.login')
 </body>
 
 
@@ -22,5 +22,6 @@
 @include('layout._script')
 @stack('js')
 @include('layout.messages')
+
 
 </html>
