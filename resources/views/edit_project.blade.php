@@ -471,8 +471,8 @@
 
                     <div class="col-11 col-md-8">
                         <div class="text-right mb-3">
-                            <button class="btn custom-btn-edit w-25" >إضافة / تعديل
-                                <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <a  href="{{route('project.createUpdate',['id'=>$project->id])}}" class="btn custom-btn-edit w-25" >إضافة / تعديل
+                                <i class="fa fa-pencil" aria-hidden="true"></i></a>
                         </div>
                     </div>
 

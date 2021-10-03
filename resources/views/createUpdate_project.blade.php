@@ -20,8 +20,9 @@
             <div class="col-lg-6 mx-auto">
                 <h2>معلومات المشروع</h2>
 
-                <form action="{{route('project.store')}}" method="post" id="form1" enctype="multipart/form-data">
+                <form action="{{route('project.createUpdate.update',['id'=>$projects->id])}}" method="post" id="form1" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="drag-drop-image">
                         <svg xmlns="http://www.w3.org/2000/svg" width="39.75" height="39.75" viewBox="0 0 39.75 39.75">
                             <path id="Path_988" data-name="Path 988"
@@ -35,14 +36,19 @@
                             <span class="choose-txt">لم يتم اختيار صور</span>
                         </div>
                     </div>
-                    <div class="main-custom-input mt-4">
+                    <div class="main-custom-input mt-4 ">
                         <input type="text" name="name" placeholder="اسم المشروع" value="{{$projects->name}}" >
-                    </div>
+                        <input type="text" name="note_name" placeholder="ملاحظات" value="" >
 
+                    </div>
+                    <div class="main-custom-input mt-4 col-10" >
+                    </div>
 
                     <div class="main-custom-input mt-4">
                         <textarea name="description" id="" class="w-100" data-error rows="5"
                                   placeholder="وصف المشروع" >{{$projects->description}}</textarea>
+                        <input type="text" name="note_description" placeholder="ملاحظات" value="" >
+
                     </div>
 
                     <div class="input-section mt-4">
@@ -62,11 +68,14 @@
                         <div class="cards">
                             <div class="main-custom-input upload-input mb-3">
 
-                                <input type="file" class="d-none" id="file-upload" name="attachment[]">
-                                <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                                <input type="text" placeholder="اسم الملف" name="attachment_name[]" value="{{$attachment->attachment_name}}">
-                                {{--                                <button class="btn custom-btn-edit upload-file-btn ">رفع</button>--}}
-                                <i class="fa fa-times px-3 new-remove" style="opacity: 0;" aria-hidden="true"></i>
+                                <div class="col-11 col-md-12">
+                                    <div class="hor-card">
+                                        <h2>{{$attachment->attachment_name}}</h2>
+                                        <div class="info">
+                                            <a  href="{{asset('files')}}/{{$attachment->attachment}}" class="btn btn-custom"  download>تحميل</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

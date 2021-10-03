@@ -25,7 +25,11 @@ Route::resource('project', ProjectController::class);
 Route::get('myProjects',[ProjectController::class,'myProjects'])->name('myProjects');
 
 Route::get('projectt/search', [ProjectController::class, 'search'])->name('project.search');
-Route::get('project/create-update/{id}', [ProjectController::class, 'createUpdateProject'])->name('project.createUpdate');
+Route::get('project/create-update-page/{id}', [ProjectController::class, 'createUpdatePageProject'])->name('project.createUpdate');
+
+Route::put('project/create-update/{id}',[ProjectController::class,'createUpdate'])->name('project.createUpdate.update');
+
+
 Route::put('target/update/{id}', [ProjectController::class, 'target_update'])->name('target.update');
 Route::put('status/update/{id}', [ProjectController::class, 'status_update'])->name('status.update');
 Route::delete('target/destroy/{id}', [ProjectController::class, 'target_destroy'])->name('target.destroy');

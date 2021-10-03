@@ -98,10 +98,80 @@ class ProjectController extends Controller
 
     }
 
-    public function createUpdateProject($id)
+    public function createUpdatePageProject($id)
     {
         $projects=Project::find($id);
         return view('createUpdate_project',compact('projects'));
+
+    }
+    public  function  createUpdate(Request $request,$id, FilesService $filesService){
+
+        $validator=Validator::make($request->all(), [
+            'name' => 'required',
+            'image' => 'image',
+            'description' => 'required',
+            'attachment.*' => 'required',
+            'attachment_name.*' => 'required',
+        ]);
+
+        $project=Project::findorfail($id);
+        $validator->sometimes('note_description', 'required', function($input) use ($project,$request) {
+            return $project->description!=$input->description;
+
+        });
+
+        $validator->sometimes('note_name', 'required', function($input)use ($project,$request) {
+            return $project->name!=$input->name;
+
+        });
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error','خطأ في البيانات المدخلة');
+        }
+
+        if($request->note_name){
+            $log=Log::create([
+                'user_id'=>1,
+                'project_id'=>$id ,
+                'event'=>'تعديل الاسم',
+                'note'=>$request->note_name
+            ]);
+
+        }
+
+        if($request->note_description){
+            $log=Log::create([
+                'user_id'=>1,
+                'project_id'=>$id ,
+                'event'=>'تعديل الوصف',
+                'note'=>$request->note_description
+            ]);
+
+        }
+
+
+
+
+       $project->update([
+           'name'=>$request->name,
+           'description'=>$request->description
+       ]);
+
+        if($request->has('attachment')) {
+
+            $attachments = [];
+            foreach ($request->attachment as $key => $value) {
+                $attachments[$key]['attachment'] = $filesService->upload($request->attachment[$key], 'files', $project->name);;
+                $attachments[$key]['attachment_name'] = $request->attachment_name[$key];;
+
+            }
+            $project->attachments()->createMany($attachments);
+
+        }
+        if($project){
+            return redirect()->back()->with('success',"تم التعديل بنجاح");
+        }
+
 
     }
 
