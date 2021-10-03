@@ -342,11 +342,24 @@ class ProjectController extends Controller
     }
     public function filter(Request $request){
 
-        $order=$request->date=="oldest"?"asc":"desc";
 
-        $projects =Project::orderby('created_at',$order)->get();
 
-        return response()->json(['projects'=>$projects]);
+        $type_order=$request->date=="latest"?"desc":"asc";
+        $projects =Project::when($request->project_status Or $request->project_health, function ($query) use ($request) {
+            $query->where('project_health',$request->project_health)->Orwhere('status',$request->project_status);
+        })->orderby('id',$type_order)->get();
+
+
+
+
+
+
+
+
+
+
+
+        return response()->json(['projects'=>$projects,'date'=>$request->date]);
 
     }
 

@@ -2,8 +2,12 @@
 <html lang="ar" dir="rtl">
 
 @include('layout._head')
-@include('layout.modals.login')
+
+
 <body>
+@include('layout.modals.filter')
+@include('layout.modals.login')
+
 <div class="se-pre-con"></div>
 
 @include('layout._header')

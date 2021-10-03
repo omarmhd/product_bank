@@ -298,7 +298,10 @@
                                         </div>
                                         <h2 class="title">{{$target->factor}} </h2>
                                         <div class="info">
-
+                                            <div class="nubmer-of-clac" hidden>
+                                                <span>{{$target->target_number}}</span>
+                                                <small>{{$target->result}}</small>
+                                            </div>
                                             <div class="nubmer-of">
                                                 <span>{{$target->target_number}}</span>
                                                 <small>{{$target->result}}</small>

@@ -76,7 +76,7 @@
                                     <input type="text" class="target_number" required placeholder="الهدف(رقم)"
                                            name="target_number[]" id="target_number">
                                 </div>
-                                <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
+                                <i class="fa fa-times  new-remove" style="opacity: 0;pointer-events: none" aria-hidden="true"></i>
                             </div>
 
                         </div>
@@ -106,17 +106,11 @@
                                     <input type="text" placeholder="اسم الملف" name="attachment_name[]">
                                 </div>
 
-                                <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
+                                <i class="fa fa-times  new-remove" style="opacity: 0;pointer-events: none" aria-hidden="true"></i>
                             </div>
 
-                            <div class="main-custom-input upload-input mb-3" style="display: flex;">
-                                <input type="file" required="" class="d-none" id="file-upload" name="attachment[]" disabled="">
-                                <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                                <div>
-                                    <input type="text" required="" placeholder="اسم الملف" name="attachment_name[]">
-                                </div>
-                                <i class="fa fa-times  new-remove" aria-hidden="true"></i>
-                            </div></div>
+
+                        </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-custom btn-add  "> + إضافة ملف جديد</button>
                         </div>

@@ -24,7 +24,7 @@ $('.fade,.close').on('click', function () {
     }, 300)
 });
 $(function () {
-    $('.nubmer-of').each(function(){
+    $('.nubmer-of-clac').each(function(){
         var total = parseInt($(this).children('small').html(), 10);
         var goal = parseInt($(this).children('span').html(), 10);
         total = isNaN(total) ? 0 : total;
@@ -66,48 +66,15 @@ var i=1
 
 $('.btn-add').on('click', function () {
 
-//     $('.cards').append(`
-//                                <div class="main-custom-input mb-3">
-//                                 <div>
-//                                     <input type="text" class="factor"  placeholder="العامل" name="factor[`+i+`]" id="factor[`+i+`]">
-//                                 </div>
-//                                 <div>
-//                                     <input type="text" class="target_name"  placeholder="اسم الهدف" name="target_name[`+i+`]"
-//                                            id="target_name[`+i+`]">
-//                                 </div>
-//                                 <div>
-//                                     <input type="text" class="target_number"  placeholder="الهدف(رقم)"
-//                                            name="target_number[`+i+`]" id="target_number[`+i+`]">
-//                                 </div>
-//                                 <i class="fa fa-times  new-remove" style="opacity: 0;" aria-hidden="true"></i>
-//                             </div>
-//
-//
-// `);
-//
-//     i++;
 
-    // console.log('test');
     clone = $(this).parent().siblings('.clone').clone();
     $cards = $(this).parent().siblings('.cards');
 
-   // clone.find('div').children("input").each(function () {
-   //      var name= $(this).prop('name').replace('[]','');
-   //         $(this).prop("name",name+'['+i+']');
-   //         $(this).prop("id",name+'['+i+']');
-   //
-   //
-   //
-   //  }
-   //  );
 
+    clone.children("input").prop("disabled",false);
     clone.find('div').children("input").prop("disabled",false);
 
-    i++;
     clone.appendTo($cards);
-
-
-
 
     clone.fadeIn(500);
     clone.css('display', 'flex');

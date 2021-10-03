@@ -52,6 +52,10 @@
                         <div class="hor-card">
                             <h2>{{$target->factor}}</h2>
                             <div class="info">
+                                <div class="nubmer-of-clac" hidden>
+                                    <span>{{$target->target_number}}</span>
+                                    <small>{{$target->result}}</small>
+                                </div>
                                 <div class="nubmer-of">
                                     <span>عدد التحميلات</span>
                                     <small>{{$target->target_number}}</small>

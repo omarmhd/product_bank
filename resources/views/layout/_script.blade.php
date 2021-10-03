@@ -53,3 +53,18 @@
     });
 
 </script>
+
+
+@if(!session('user_id'))
+<script>
+    $(document).ready(function () {
+
+        $('#login').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+        $('#login .close').css('display', 'none');
+
+    })</script>
+
+    @endif

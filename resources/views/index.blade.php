@@ -13,7 +13,7 @@
 
                                 <div class="number-project"> عدد المشاريع :  {{$count}} </div>
                                 <div class="filter">
-                                    <i class="fa fa-sliders" aria-hidden="true"></i>
+                                    <a href="#" data-toggle="modal" data-target="#filter"> <i class="fa fa-sliders" aria-hidden="true"></i></a>
                                     <select name="sort" class="sort">
                                         <option selected disabled>الترتيب حسب</option>
                                         <option value="oldest"> الأقدم </option>
@@ -28,10 +28,6 @@
                             <div class="row projects" >
 
                                 @forelse ($projects as $project)
-
-
-
-
 
                                 <div class="col-md-6 mb-4">
                                     @if(isset($type_page))
@@ -55,6 +51,7 @@
                                             </div>
                                         </div>
                                     </a>
+                                        </a>
                                 </div>
 
                                 @empty
@@ -78,9 +75,23 @@
 
 
             $('.sort').change(function (){
-                filter(date= $(this).val(),project_health="",project_status="")
+
+
+                filter( $(this).val(),project_health="",project_status="")
 
             });
+
+
+            $('.filter-form').submit(function (e){
+                e.preventDefault()
+
+                var sort=$('.sort').val()||"";
+                var project_health=$('.project-health').val()||"";
+                var project_status=$('.project-status').val()||"";
+
+                filter(sort,project_health, project_status)
+
+            })
 
 
 
@@ -89,15 +100,18 @@
 
 
             function filter(date="",project_health="",project_status=""){
-
+                console.log(date)
+                console.log(project_health)
                 $.ajax({
                     url:"{{route('project.filter')}}" ,
                     type: "get",
                     data:{
-                        date: {date:date},
+                        date: date,
                         project_health: project_health,
                         project_status: project_status,
                     },
+
+
                     success: (data) => {
                         $('.projects').empty()
                         var projects = JSON.parse( JSON.stringify(data.projects));
