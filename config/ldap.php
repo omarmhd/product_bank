@@ -145,59 +145,9 @@ return [
 
                 'hosts' => explode(' ', env('LDAP_HOSTS', 'corp-dc1.corp.acme.org corp-dc2.corp.acme.org')),
 
-                /*
-                |--------------------------------------------------------------------------
-                | Port
-                |--------------------------------------------------------------------------
-                |
-                | The port option is used for authenticating and binding to your LDAP server.
-                |
-                */
-
                 'port' => env('LDAP_PORT', 389),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Timeout
-                |--------------------------------------------------------------------------
-                |
-                | The timeout option allows you to configure the amount of time in
-                | seconds that your application waits until a response
-                | is received from your LDAP server.
-                |
-                */
-
                 'timeout' => env('LDAP_TIMEOUT', 5),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Base Distinguished Name
-                |--------------------------------------------------------------------------
-                |
-                | The base distinguished name is the base distinguished name you'd
-                | like to perform query operations on. An example base DN would be:
-                |
-                |        dc=corp,dc=acme,dc=org
-                |
-                | A correct base DN is required for any query results to be returned.
-                |
-                */
-
                 'base_dn' => env('LDAP_BASE_DN', 'dc=corp,dc=acme,dc=org'),
-
-                /*
-                |--------------------------------------------------------------------------
-                | LDAP Username & Password
-                |--------------------------------------------------------------------------
-                |
-                | When connecting to your LDAP server, a username and password is required
-                | to be able to query and run operations on your server(s). You can
-                | use any user account that has these permissions. This account
-                | does not need to be a domain administrator unless you
-                | require changing and resetting user passwords.
-                |
-                */
-
                 'username' => env('LDAP_USERNAME', 'username'),
                 'password' => env('LDAP_PASSWORD', 'secret'),
 

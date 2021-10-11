@@ -65,6 +65,7 @@
         });
         $('#login .close').css('display', 'none');
 
-    })</script>
+    })
+</script>
 
     @endif

@@ -5,6 +5,7 @@
 
 
 <body>
+
 @include('layout.modals.filter')
 @include('layout.modals.login')
 

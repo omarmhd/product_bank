@@ -28,6 +28,7 @@
 
     <section class="details-section bg-container edit-product">
         <div class="border-bottom-c">
+
             <div class="post-container">
                 <div class="header">
                     <figure>
@@ -48,6 +49,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="body">
                     <h2 class="title">{{$project->name}}</h2>
                     <p>{{$project->description}}</p>
@@ -76,7 +78,7 @@
                                 <h6>البداية</h6>
                                 <h6>120يوم</h6>
                             </div>
-                            <div class="rate rate-first" data-toggle="modal"  data-target="#rate" style="{{$current_day>='120'?"":"pointer-events: none"}}">
+                            <div class="rate rate-first" data-toggle="modal"  data-target="#rate1" style="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
                                      viewBox="0 0 53.034 61.224">
                                     <g id="Group_240" data-name="Group 240"
@@ -99,7 +101,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <div class="rate rate-final" data-toggle="modal" data-target="#rate" style="{{$current_day>='200'?"":"pointer-events: none"}}">
+                            <div class="rate rate-final" data-toggle="modal" data-target="#rate2" style="{{$current_day>='0'?"pointer-events: none":""}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
                                      viewBox="0 0 53.034 61.224" >
                                     <g id="Group_240" data-name="Group 240"
@@ -566,7 +568,6 @@
         $(document).on('submit','.form-edit-status',function (e){
             e.preventDefault();
             var formData = new FormData(this);
-
             var id=$('.btn-edit-status').data('id')
             var  url="{{route('status.update',['id'=>':id'])}}"
             url= url.replace(':id',id)
@@ -594,9 +595,7 @@
                         processData: false,
                         success: (data) => {
 
-
                             if(data.status) {
-
                                 Swal.fire({
                                     position: 'center',
                                     icon: data.status,
@@ -783,6 +782,37 @@
                 }})
 
         })
+        //
+
+        $(document).on('submit','.review-form',function (e){
+            e.preventDefault();
+            url="{{route('project.evaluation.update',['id'=>$project->id])}}"
+            var formData = new FormData(this);
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                  $('#rate1').modal('hide');
+                    $('#rate2').modal('hide');
+
+                }})
+
+        });
+
+
+
+
+
+
+
+
+
+
 
 
 

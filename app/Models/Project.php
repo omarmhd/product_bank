@@ -27,9 +27,29 @@ class Project extends Model
 
     }
 
+    public function getInitialEvaluationAttribute($value)
+    {
+
+        if($value){
+         return json_decode($value);
+        }
+        return [''];
+
+
+    }
+
+    public function setFinalEvaluationAttribute($value)
+    {
+        $this->attributes['final_evaluation']=json_encode($value);
+
+    }
+
     public function getFinalEvaluationAttribute($value)
     {
-        return $this->attributes['final_evaluation']= json_decode($value);
+        if($value){
+            return json_decode($value);
+        }
+        return [''];
 
     }
 

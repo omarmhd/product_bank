@@ -11,7 +11,7 @@ $('.side-overlay,.close-menu').on('click',function(){
 });
 
 $('.login,.rate').on('click', function () {
-    $('.container').addClass('bg-blur');
+    // $('.container').addClass('bg-blur');
     $('html,body').css('overflow-y', 'hidden');
 });
 

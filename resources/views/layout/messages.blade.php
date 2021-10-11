@@ -1,10 +1,14 @@
 @if (session('success'))
 
     <script>
-        toastr.success('{!!session('success')!!}', 'نجاح!', {
-            closeButton: true
-        });
 
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title:'ss',
+            showConfirmButton: false,
+            timer: 2000
+        })
     </script>
 @elseif(session('error'))
 

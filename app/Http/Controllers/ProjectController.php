@@ -126,7 +126,7 @@ class ProjectController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->back()->with('error','خطأ في البيانات المدخلة');
+            return redirect()->back()->with('error', $validator->errors()->first())->withInput($request->all());
         }
 
         if($request->note_name){
@@ -148,14 +148,13 @@ class ProjectController extends Controller
             ]);
 
         }
+        $data=$request->except(["_token","_method","image","note_name","note_description"]);
+        if ($request->has('image')){
+           $data['image']= $filesService->upload($request->image, 'files', $project->name);;
 
+        }
 
-
-
-       $project->update([
-           'name'=>$request->name,
-           'description'=>$request->description
-       ]);
+    $project->update($data);
 
         if($request->has('attachment')) {
 
@@ -168,9 +167,9 @@ class ProjectController extends Controller
             $project->attachments()->createMany($attachments);
 
         }
-        if($project){
-            return redirect()->back()->with('success',"تم التعديل بنجاح");
-        }
+
+            return redirect()->route('project.edit',['project'=>$project->id])->with('success',"تم التعديل بنجاح");
+
 
 
     }
@@ -398,13 +397,15 @@ class ProjectController extends Controller
     }
 
     public function project_evaluation(Request $request,$id){
-        $initial=$request->initial_evaluation;
-        $final=$request->final_evaluation;
-        Project::findorfail($id)->update([
-            'initial_evaluation'=>$initial,
-            'final_evaluation'=>$final
 
-        ]);
+        $data=$request->except(['_method','_token']);
+
+
+       $project= Project::findorfail($id)->update(
+   $data
+
+        );
+
 
 
 
