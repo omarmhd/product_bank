@@ -8,6 +8,7 @@ use App\Models\Log;
 use App\Models\Project;
 use App\Models\Target;
 use App\services\FilesService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,11 +18,31 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
         $count=$projects->count();
+
+        $now = Carbon::now();
+
+        foreach($projects as $project){
+            $update_date=Carbon::parse($project->updated_at);
+            $diff = $update_date->diffInDays($now);
+
+            if($diff>=14){
+                Project::find($project->id)->update([
+                    'project_health'=>'ضعيفة'
+                ]);
+            }else{
+                Project::find($project->id)->update([
+                    'project_health'=>'عالية'
+                ]);
+            }
+
+
+        }
+
         return view('index', compact('projects','count'));
     }
     public function myProjects()
     {
-        $projects = Project::where('user_id',session('user_id'))->get();
+        $projects = Project::where('user_id',auth()->user()->id)->get();
         $count=$projects->count();
         $type_page="myProjects";
         return view('index', compact('projects','count','type_page'));
@@ -62,7 +83,7 @@ class ProjectController extends Controller
         $data = $request->except(['factor', 'target_name', 'target_number', 'attachment', 'attachment_name']);
         $data['status'] = "قيد التنفيذ";
         $data['project_health'] = "عالية";
-        $data['user_id']=1;
+        $data['user_id']=auth()->user()->id;
         if ($request->hasFile('image')) {
             $data['image'] = $filesService->upload($request->image, 'files', 'project-image');
         }
@@ -126,12 +147,12 @@ class ProjectController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->back()->with('error', $validator->errors()->first())->withInput($request->all());
+            return redirect()->back()->with('error', $validator->errors()->first())->withInput();
         }
 
         if($request->note_name){
             $log=Log::create([
-                'user_id'=>1,
+                'user_id'=>auth()->user()->id,
                 'project_id'=>$id ,
                 'event'=>'تعديل الاسم',
                 'note'=>$request->note_name
@@ -141,7 +162,7 @@ class ProjectController extends Controller
 
         if($request->note_description){
             $log=Log::create([
-                'user_id'=>1,
+                'user_id'=>auth()->user()->id,
                 'project_id'=>$id ,
                 'event'=>'تعديل الوصف',
                 'note'=>$request->note_description
@@ -287,7 +308,7 @@ class ProjectController extends Controller
             $targets[$key]['note'] = $request->note[$key];
 
             Log::updateOrCreate(['note'=>$request->note[$key],'project_id'=>$id],[
-                'user_id'=>1,
+                'user_id'=>auth()->user()->id,
                 'project_id'=>$id ,
                 'event'=>'عامل',
                 'note'=>$request->note[$key]
@@ -351,7 +372,7 @@ class ProjectController extends Controller
 
 
        $log=Log::create([
-            'user_id'=>1,
+            'user_id'=>auth()->user()->id,
             'project_id'=>$request->project_id ,
             'event'=>'حذف عامل',
             'note'=>$request->note
@@ -368,17 +389,17 @@ class ProjectController extends Controller
 
 
     public function log(){
-        $logs=Log::all();
+        $logs=Log::where('user_id',auth()->user()->id)->get();
         return view('log',compact('logs'));
     }
     public function like($id){
-        $like= Like::where('project_id',$id)->where('user_id',1);
+        $like= Like::where('project_id',$id)->where('user_id',auth()->user()->id);
         $color="#1E1656";
 
             if (!$like->first()){
             $like=Like::create([
             'project_id'=>$id,
-            'user_id'=>1,
+            'user_id'=>auth()->user()->id,
             'like'=>1
             ]);
             $color="#0056B3";

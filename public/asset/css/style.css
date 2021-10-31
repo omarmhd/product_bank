@@ -1061,3 +1061,34 @@ if it's not present, don't show loader */
     z-index: 9999;
     background: url(../images/Preloader_2.gif) center no-repeat #fff;
 }
+.home .content .bottom .card-1 .body-card h1{
+    word-break: break-all;
+}
+@media(max-width:419px){
+    .home .content .top .filter{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .home .content .top {
+        flex-flow: column;
+    }
+    .home .content .top .number-project{
+        font-size:18px;
+    }
+    footer .footer > div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .home .content .top .filter select{
+        width: 100%;
+
+    }
+
+}
+@media(max-width:992px){
+    .aside-bar-menu .search i {
+        transform: translate(0%, 0%);
+    }
+}

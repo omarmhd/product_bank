@@ -37,8 +37,8 @@
                         </div>
                     </div>
                     <div class="main-custom-input mt-4 ">
-                        <input type="text" name="name" placeholder="اسم المشروع" value="{{$projects->name}}" >
-                        <input type="text" name="note_name" placeholder="ملاحظات" value="" >
+                        <input type="text" name="name" placeholder="اسم المشروع" value="{{ old('name',$projects->name) }}" >
+                        <input type="text" name="note_name" placeholder="ملاحظات" value="{{ old('note_name',$projects->note_name) }}" >
 
                     </div>
                     <div class="main-custom-input mt-4 col-10" >
@@ -46,8 +46,8 @@
 
                     <div class="main-custom-input mt-4">
                         <textarea name="description" id="" class="w-100" data-error rows="5"
-                                  placeholder="وصف المشروع" >{{$projects->description}}</textarea>
-                        <input type="text" name="note_description" placeholder="ملاحظات" value="" >
+                                  placeholder="وصف المشروع"  >{{ old('description',$projects->description) }}</textarea>
+                        <input type="text" name="note_description" placeholder="ملاحظات" value="{{ old('note_description',$projects->note_description) }}" >
 
                     </div>
 
@@ -103,41 +103,7 @@
 
 
 
-            var validator = $('#form1').validate({
 
-                errorElement: 'div',
-                errorClass: 'validation-error-message help-block form-helper bold',
-
-                rules: {},
-
-                errorPlacement: function (error, element) {
-                    if (element.parent('.main-custom-input').length) {
-                        error.insertBefore(element);
-                    } else {
-                        error.insertAfter(element);
-                    }
-
-                },
-
-                submitHandler: function (form) {
-                    form.submit();
-                }
-            });
-            $('#form1').on('submit', function (e) {
-                e.preventDefault();
-                $('input.target_name').each(function () { $(this).rules('add', { required: true});   });
-                $('input.factor').each(function () { $(this).rules('add', { required: true});   });
-                $('input.target_number').each(function () { $(this).rules('add', { required: true});   });
-
-
-                if (!$(this).valid()) {
-                    validator.focusInvalid();
-
-                    return false;
-
-                }
-
-            })
 
         })
 

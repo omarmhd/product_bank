@@ -124,9 +124,7 @@ $('#file-upload').change(function(e){
 //     e.preventDefault();
 //     console.log('upload');
 // });
-$(document).on('click','.btn-custom-login',function(){
-    location.href = 'edit_project.blade.php';
-});
+
 $(document).on("dragover",'.drag-drop-image', function(e) {
     e.preventDefault();
     e.stopPropagation();

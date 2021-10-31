@@ -35,16 +35,16 @@
                         <img src="{{asset('files')}}/{{$project->image}}" alt="" class="img-fluid" srcset="">
                     </figure>
                     <div class="user-info">
-                        <h2>مدير المنتج: محمد ولي خان</h2>
-                        <p>إدارة الأبحاث و الابتكار</p>
+                        <h2>مدير المنتج:   {{auth()->user()->name}}</h2>
+                        <p>  {{auth()->user()->job}}</p>
                         <div class="contact">
                             <a href="#">
                                 <span >جوال:</span>
-                                0542205824
+                                {{auth()->user()->phone}}
                             </a>
                             <a href="mailto:Mwalikhan@elm.sa">
                                 <span>:إيميل</span>
-                                Mwalikhan@elm.sa
+                                {{auth()->user()->email}}
                             </a>
                         </div>
                     </div>
@@ -101,7 +101,8 @@
                                     </g>
                                 </svg>
                             </div>
-                            <div class="rate rate-final" data-toggle="modal" data-target="#rate2" style="{{$current_day>='0'?"pointer-events: none":""}}">
+{{--                            //pointer-events: none--}}
+                            <div class="rate rate-final" data-toggle="modal" data-target="#rate2" style="{{$current_day>='0'?"":""}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
                                      viewBox="0 0 53.034 61.224" >
                                     <g id="Group_240" data-name="Group 240"
@@ -644,7 +645,7 @@
                         Swal.fire({
                             title: 'يتم رفع الملفات ',
                             html: 'سيتم إغلاق النافذة بعد <b></b> ثانية.',
-                            timer: 2000,
+                            timer: 1000,
                             allowOutsideClick: false,
 
                             timerProgressBar: true,
@@ -669,7 +670,7 @@
                                     icon: data.status,
                                     title: data.meessage,
                                     showConfirmButton: false,
-                                    timer: 2000
+                                    timer: 1000
                                 })
                                 setTimeout(function () {
                                     location.reload()
@@ -685,7 +686,7 @@
                             icon: data.status,
                             title: data.message,
                             showConfirmButton: false,
-                            timer: 2000
+                            timer: 1000
                         })
 
                     }

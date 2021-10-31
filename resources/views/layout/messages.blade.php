@@ -5,18 +5,21 @@
         Swal.fire({
             position: 'center',
             icon: 'success',
-            title:'ss',
+            title:"{{session('success')}}",
             showConfirmButton: false,
             timer: 2000
         })
     </script>
 @elseif(session('error'))
-
     <script>
-        toastr.error('{!!session('error')!!}', 'خطأ!', {
-            closeButton: true
-        });
 
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title:"{{session('error')}}",
+            showConfirmButton: false,
+            timer: 2000
+        })
     </script>
 
 @endif

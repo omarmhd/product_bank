@@ -55,7 +55,7 @@
 </script>
 
 
-@if(!session('user_id'))
+@guest
 <script>
     $(document).ready(function () {
 
@@ -67,5 +67,6 @@
 
     })
 </script>
+@endguest
 
-    @endif
+

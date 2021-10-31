@@ -33,7 +33,7 @@
  </style>
 <header>
     <div class="container">
-        @if(session('user_id'))
+      @auth
 
             <div class="nav-bar">
                 <div class="items">
@@ -59,7 +59,7 @@
                                     <path id="Path_382" data-name="Path 382" d="M0,0H32.718V32.718H0Z" fill="none"></path>
                                   </svg>
                                </span>
-                                محمد خان
+                              {{auth()->user()->name}}
                             </button>
                             <div class="dropdown-menu">
                                 <a href="{{route('myProjects')}}" class="dropdown-item">مشاريعي</a>
@@ -77,7 +77,7 @@
                         <div class="search">
                             <form action="">
                                 <input type="text" placeholder="بحث ...">
-                                <button type="submit"> <i class="fa fa-search" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn-search"> <i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
                         <a href="new-project.html" class="btn custom-btn-edit">مشروع جديد</a>
@@ -102,7 +102,7 @@
 
             </div>
 
-        @else
+        @elseauth
             <div class="nav-bar">
                 <div class="items">
                     <a href="index.html">بنك المنتجات</a>
@@ -128,7 +128,7 @@
 
             </div>
 
-        @endif
+        @endauth
 
     </div>
 </header>
