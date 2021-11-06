@@ -44,9 +44,9 @@
 {{--                                        </g>--}}
 {{--                                    </svg>--}}
 {{--                                </span>--}}
-                                <input type="email"  name="email" class="input-text-custom form-control @error('email') is-invalid @enderror" placeholder="الايميل">
+                                <input type="name"  name="name" class="input-text-custom form-control @error('name') is-invalid @enderror" placeholder="name">
 
-                                @error('email')
+                                @error('name')
                                 <p class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </p>

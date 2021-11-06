@@ -9,12 +9,12 @@
                         <img src="{{asset('files')}}/{{$project->image}}" alt="" class="img-fluid" srcset="">
                     </figure>
                     <div class="user-info">
-                        <h2>مدير المنتج: محمد ولي خان</h2>
-                        <p>إدارة الأبحاث و الابتكار</p>
+                        <h2>مدير المنتج: {{$project->user->name}}</h2>
+                        <p> {{$project->user->jop}}</p>
                         <div class="contact">
                             <a href="#">
                                 <span>جوال:</span>
-                                0542205824
+                                 {{$project->user->phone}}
                             </a>
                             <a href="mailto:Mwalikhan@elm.sa">
                                 <span>:إيميل</span>

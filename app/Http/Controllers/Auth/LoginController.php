@@ -46,17 +46,19 @@ class LoginController extends Controller
      *
      * @return string
      */
-//    public function username()
-//    {
-//        return 'name';
-//    }
+    public function username()
+    {
+        return 'name';
+    }
 
-//    protected function  credentials(Request $request)
-//    {
-//        return[
-//            'uid'=>$request->name,
-//            'password'=>$request->password
-//        ];
-//    }
+    protected function  credentials(Request $request)
+    {
+
+
+        return[
+            'uid'=>$request->name,
+            'password'=>$request->password
+        ];
+    }
 }
 

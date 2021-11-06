@@ -80,19 +80,24 @@ footer .footer > div, .home .content .bottom .card-1 .footer-card, .home .conten
   color: #1E1656;
 }
 .post-container .header figure {
-  margin-right: calc(var(--varMarPad) * 26);
-  height: calc(var(--varMarPad) * 231.45);
+    /* margin-right: calc(var(--varMarPad) * 26);
+    height: calc(var(--varMarPad) * 231.45); */
+    width: 315px;
+    height: 205px;
 }
 @media (max-width: 992px) {
-  .post-container .header figure {
-    height: auto;
-  }
+    .post-container .header figure {
+        height: auto;
+        width:100%;
+    }
 }
 @media (min-width: 992px) and (max-width: 1024px) {
-  .post-container .header figure {
-    width: calc(var(--varMarPad) * 365.54);
-    height: auto;
-  }
+    .post-container .header figure {
+        /* width: calc(var(--varMarPad) * 365.54);
+        height: auto; */
+        width: 250px;
+
+    }
 }
 .post-container .header .user-info {
   margin-right: calc(var(--varMarPad) * 42);

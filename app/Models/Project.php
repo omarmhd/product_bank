@@ -14,10 +14,17 @@ class Project extends Model
     public  function targets(){
         return $this->hasMany(Target::class);}
 
+
+    public  function user(){
+        return $this->belongsTo(User::class);
+
+    }
     public  function attachments(){
         return $this->hasMany(Attachment::class);
 
     }
+
+
     public function likes(){
         return $this->hasMany(Like::class)->sum('like');
     }
