@@ -35,16 +35,16 @@
                         <img src="{{asset('files')}}/{{$project->image}}" alt="" class="img-fluid" srcset="">
                     </figure>
                     <div class="user-info">
-                        <h2>مدير المنتج:   {{auth()->user()->name}}</h2>
-                        <p>  {{auth()->user()->job}}</p>
+                        <h2>مدير المنتج:   {{$project->user->name}}</h2>
+                        <p>  {{$project->user->job}}</p>
                         <div class="contact">
                             <a href="#">
                                 <span >جوال:</span>
-                                {{auth()->user()->phone}}
+                                {{$project->user->phone}}
                             </a>
                             <a href="mailto:Mwalikhan@elm.sa">
                                 <span>:إيميل</span>
-                                {{auth()->user()->email}}
+                                {{$project->user->email}}
                             </a>
                         </div>
                     </div>

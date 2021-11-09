@@ -118,7 +118,6 @@ class ProjectController extends Controller
         }
 
     }
-
     public function createUpdatePageProject($id)
     {
         $projects=Project::find($id);
@@ -265,6 +264,10 @@ class ProjectController extends Controller
 //        $create_date=$project->created_at;
 //        $first_travel=120;
 //        $secand_travel=200;
+        if ($project->user->id!==auth()->user()->id){
+
+            return redirect(route('myProjects'))->with('error','صفحة غير مصرح بالوصول لها');
+        }
         $start = new \DateTime($project->created_at );
         $origin = new \DateTime(now()->format('Y-m-d H:i:s'));
         $target = new \DateTime('2022-1-1 14:23:00');

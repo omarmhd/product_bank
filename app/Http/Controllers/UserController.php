@@ -9,7 +9,6 @@ class UserController extends Controller
 {
 
     public function login(){
-
         Session::put('user_id', 1);
         return redirect()->route('project.index');
     }
