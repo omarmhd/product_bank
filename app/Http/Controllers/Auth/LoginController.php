@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\ProjectController;
 class LoginController extends Controller
 {
     /*
@@ -59,6 +59,14 @@ class LoginController extends Controller
             'uid'=>$request->name,
             'password'=>$request->password
         ];
+    }
+
+
+    public function showLoginForm()
+    {
+
+        $ProjectController =new ProjectController();
+        return  $ProjectController->index();
     }
 }
 
