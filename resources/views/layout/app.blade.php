@@ -51,8 +51,9 @@
 </div>
 
 
-
+@auth
 @include('layout._footer')
+    @endauth
 </body>
 
 

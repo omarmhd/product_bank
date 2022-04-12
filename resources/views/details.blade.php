@@ -6,11 +6,11 @@
             <div class="post-container">
                 <div class="header">
                     <figure>
-                        <img src="{{asset('files')}}/{{$project->image}}" alt="" class="img-fluid" srcset="">
+                        <img src="{{asset('files')}}/{{$project->image}}" alt="" style="height:inherit"  class="img-fluid" srcset="">
                     </figure>
                     <div class="user-info">
                         <h2>مدير المنتج: {{$project->user->name}}</h2>
-                        <p> {{$project->user->jop}}</p>
+                        <p> {{$project->user->job}}</p>
                         <div class="contact">
                             <a href="#">
                                 <span>جوال:</span>
@@ -18,7 +18,7 @@
                             </a>
                             <a href="mailto:Mwalikhan@elm.sa">
                                 <span>:إيميل</span>
-                                Mwalikhan@elm.sa
+                                {{$project->user->email}}
                             </a>
                         </div>
                     </div>
@@ -32,8 +32,10 @@
                         <span>حالة المشروع :  {{$project->status}}</span>
                         <span class="project-health"> صحة المشروع: {{$project->project_health}}</span>
                         <span class="last-edit">اخر تعديل:{{$project->updated_at->toDateString()}}</span>
-                        <a href="javascript:void(0)" class="like" id="like" data-id="{{$project->id}}">
-                            <span class="like-count">{{$project->likes()}}</span>
+                        <a href="javascript:void(0)" STYLE="color: {{ in_array(auth()->user()->id,$project->likes->pluck('user_id')->toArray())?"#0056B3":""}} " class="like" id="like" data-id="{{$project->id}}">
+
+
+                            <span class="like-count" >{{count($project->likes)}}</span>
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                         </a>
                     </div>

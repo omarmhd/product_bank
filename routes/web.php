@@ -13,16 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-\Illuminate\Support\Facades\Auth::routes([
-    'reset' => false,
-    'verify' => false,
-    'register' => false,
-]);
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','verified'],], function () {
+
     Route::get('/', [ProjectController::class, 'index']);
 
     Route::resource('project', ProjectController::class);
+    Route::resource('user', \App\Http\Controllers\UserController::class);
 
     Route::get('myProjects', [ProjectController::class, 'myProjects'])->name('myProjects');
     Route::get('projectt/search', [ProjectController::class, 'search'])->name('project.search');
@@ -50,9 +47,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('filter', [ProjectController::class, 'filter'])->name('project.filter');
 
 
-    Route::get('test/login', [\App\Http\Controllers\UserController::class, 'login'])->name('test.login');
 });
 //Route::post('attachment/{indexd}',ProjectController::class);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//
+//Auth::routes();
+Auth::routes([
+    'verify' => true,
+
+]);
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

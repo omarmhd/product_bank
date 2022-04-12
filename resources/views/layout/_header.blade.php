@@ -37,7 +37,7 @@
 
             <div class="nav-bar">
                 <div class="items">
-                    <a href="{{route('project.index')}}">بنك المنتجات</a>
+                    <a href="{{route('project.index')}}"> بنك التجارب</a>
 
                     <div class="left-side">
                         <a href="{{route('project.create')}}" class="btn custom-btn-edit">مشروع جديد</a>
@@ -65,6 +65,15 @@
                                 <a href="{{route('myProjects')}}" class="dropdown-item">مشاريعي</a>
                                 <a href="{{route('log')}}" class="dropdown-item">التدقيق</a>
                                 <a href="#" class="dropdown-item">حسابي</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                         <!-- <a href="#" class="login" data-toggle="modal" data-target="#login">دخول</a> -->
@@ -105,7 +114,7 @@
         @elseauth
             <div class="nav-bar">
                 <div class="items">
-                    <a href="index.html">بنك المنتجات</a>
+                    <a href="index.html">بنك التجارب</a>
                     <div class="left-side">
                         <div class="search">
                             <input type="text" placeholder="بحث ..." name="search">

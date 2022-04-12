@@ -46,27 +46,30 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function username()
-    {
-        return 'name';
-    }
+//    public function username()
+//    {
+//        return 'name';
+//    }
 
-    protected function  credentials(Request $request)
-    {
+//    protected function  credentials(Request $request)
+//    {
+//
+//
+//
+//        return[
+//            'UID'=>$request->name,
+//            'password'=>$request->password
+//        ];
+//
+//
+//    }
 
 
-        return[
-            'uid'=>$request->name,
-            'password'=>$request->password
-        ];
-    }
-
-
-    public function showLoginForm()
-    {
-
-        $ProjectController =new ProjectController();
-        return  $ProjectController->index();
-    }
+//    public function showLoginForm()
+//    {
+//
+//        $ProjectController =new ProjectController();
+//        return  $ProjectController->index();
+//    }
 }
 

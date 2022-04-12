@@ -26,7 +26,7 @@ class Project extends Model
 
 
     public function likes(){
-        return $this->hasMany(Like::class)->sum('like');
+        return $this->hasMany(Like::class);
     }
     public function setInitialEvaluationAttribute($value)
     {

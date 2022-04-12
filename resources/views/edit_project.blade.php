@@ -59,8 +59,8 @@
                         <span class="project-status">حالة المشروع :  {{$project->status}}</span>
                         <span class="project-health"> صحة المشروع: {{$project->project_health}}</span>
                         <span class="last-edit">اخر تعديل:{{$project->updated_at->toDateString()}}</span>
-                        <a href="javascript:void(0)" class="like" id="like" data-id="{{$project->id}}">
-                           <span class="like-count">{{$project->likes()}}</span>
+                        <a href="javascript:void(0)" STYLE="color: {{ in_array(auth()->user()->id,$project->likes->pluck('user_id')->toArray())==1?"#0056B3":""}} " class="like" id="like" data-id="{{$project->id}}">
+                           <span class="like-count" >{{count($project->likes)}}</span>
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                         </a>
                     </div>

@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'ldap',//users
+            'provider' => 'users',//users
         ],
     ],
 
@@ -60,27 +60,29 @@ return [
     */
 
     'providers' => [
-//        'users' => [
-//               'driver' => 'database',
-//                 'table' => 'users',
-//        ],
-        'ldap' => [
-            'driver' => 'ldap',
-            'model' =>LdapRecord\Models\OpenLDAP\User::class,
-            'database' => [
-                'model' => App\Models\User::class,
-                'sync_passwords' => false,
-                'sync_attributes' => [
-                    'name' => 'cn',
-                    'email' => 'mail',
-                ],
+        'users' => [
+               'driver' => 'database',
+                 'table' => 'users',
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
-    ]
+//        'ldap' => [
+//            'driver' => 'ldap',
+//            'model' =>LdapRecord\Models\OpenLDAP\User::class,
+//            'database' => [
+//                'model' => App\Models\User::class,
+//                'sync_passwords' => false,
+//                'sync_attributes' => [
+//                    'name' => 'uid',
+//                    'email' => 'mail',
+//                    'job'=>'job',
+//                    'phone'=>'phone'
+//                ],
+//        ],
+//
+//        // 'users' => [
+//        //     'driver' => 'database',
+//        //     'table' => 'users',
+//        // ],
+//    ]
     ],
 
     /*

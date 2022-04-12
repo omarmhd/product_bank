@@ -25,12 +25,15 @@
 
                         </div>
                         <div class="bottom">
-                            <div class="row projects" >
 
+
+                            <div class="row projects" >
+                                @auth
                                 @forelse ($projects as $project)
 
                                 <div class="col-md-6 mb-4">
-                                    @if(isset($type_page))
+
+                                    @if(isset($type_page) or $project->user_id==auth()->user()->id )
                                         <a href="{{route('project.edit',['project'=>$project->id])}}">
 
                                         @else
@@ -58,8 +61,10 @@
 
                                    <H3>  لا يوجد نتائج </H3>
                                 @endforelse
-
+                                @endauth
                             </div>
+
+
 
                         </div>
                     </div>
@@ -117,8 +122,15 @@
                         var projects = JSON.parse( JSON.stringify(data.projects));
 
                         $.each(projects,function(index, value){
-                            var url="{{route('project.edit',['project'=>":project"])}}"
+                            var url="{{route( 'project.show',['project'=>":project"])}}"
+                                @auth
+                                if(value.user_id=={{auth()->user()->id}}){
+                                url="{{route('project.edit',['project'=>":project"])}}"
+                            }
+                            @endauth
                             url =url.replace(':project',value.id)
+
+
 
 
 

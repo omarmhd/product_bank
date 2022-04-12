@@ -11,6 +11,7 @@ use App\services\FilesService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\Else_;
 
 class ProjectController extends Controller
 {
@@ -60,7 +61,12 @@ class ProjectController extends Controller
     public function create()
     {
 
-        return view('new_project');
+        if (auth()->user()->role =='M'){
+            return view('new_project');
+
+        }else{
+            return  view('profile',['user'=>auth()->user()])->with('message','قم بإدخال الحقول الفارغة وإختيار الدور الوظيفي مدير مشاريع');
+        }
 
     }
     public function store(Request $request, FilesService $filesService)
@@ -254,8 +260,6 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
         return view('details', compact('project'));
-
-
     }
     public function edit($id)
     {
@@ -389,7 +393,6 @@ class ProjectController extends Controller
         return response()->json(['status'=>'success','message'=>"تم الحذف بنجاح "]);
 
     }
-
 
     public function log(){
         $logs=Log::where('user_id',auth()->user()->id)->get();

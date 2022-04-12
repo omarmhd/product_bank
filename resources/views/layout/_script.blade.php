@@ -55,18 +55,31 @@
 </script>
 
 
-@guest
-<script>
-    $(document).ready(function () {
+{{--@guest--}}
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
 
-        $('#login').modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-        $('#login .close').css('display', 'none');
+{{--        $('#login').modal({--}}
+{{--            backdrop: 'static',--}}
+{{--            keyboard: false--}}
+{{--        });--}}
 
-    })
-</script>
-@endguest
+{{--        $('.btn-register').click(function(){--}}
+{{--            $('#login').modal('hide');--}}
+{{--            $('#register').modal({--}}
+{{--                backdrop: 'static',--}}
+{{--                keyboard: false--}}
+{{--            });--}}
+{{--        })--}}
+
+{{--        $('.btn-login').click(function(){--}}
+{{--            $('#register').modal('hide');--}}
+{{--        })--}}
+
+{{--        $('#login .close').css('display', 'none');--}}
+
+{{--    })--}}
+{{--</script>--}}
+{{--@endguest--}}
 
 
