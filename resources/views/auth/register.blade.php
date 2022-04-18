@@ -18,7 +18,7 @@
                             @csrf
                             <div class="form-group">
                                 <label>الإسم كامل</label>
-                                <input type="text"  name="name" class="input-text-custom form-control @error('name') is-invalid @enderror" placeholder="name">
+                                <input type="text"  name="name" class="input-text-custom form-control @error('name') is-invalid @enderror" placeholder="الاسم">
 
                                 @error('name')
                                 <p class="invalid-feedback" role="alert">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <label>البريد الإلكتروني</label>
-                                <input type="email"  name="email" class="input-text-custom form-control @error('email') is-invalid @enderror" placeholder="email">
+                                <input type="email"  name="email" class="input-text-custom form-control @error('email') is-invalid @enderror" placeholder="البريد الإلكتروني">
 
                                 @error('email')
                                 <p class="invalid-feedback" role="alert">

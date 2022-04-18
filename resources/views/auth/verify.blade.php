@@ -14,10 +14,11 @@
                         </div>
                     @endif
 
-                        قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق. إذا لم تتلق البريد الإلكتروني ، فإن.,
+                        قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق. إذا لم تتلق البريد الإلكتروني ,
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">انقر هنا لطلب آخر
+                        </button>.
                     </form>
                 </div>
             </div>
