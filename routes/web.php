@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+Route::group(['middleware' => ['auth','verified']], function () {
 
-Route::group(['middleware' => ['auth','verified'],], function () {
-
-    Route::get('/', [ProjectController::class, 'index']);
+    Route::get('/', [ProjectController::class, 'index'])->middleware('verified');;
 
     Route::resource('project', ProjectController::class);
     Route::resource('user', \App\Http\Controllers\UserController::class);
@@ -54,8 +57,5 @@ Route::group(['middleware' => ['auth','verified'],], function () {
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //
 //Auth::routes();
-Auth::routes([
-    'verify' => true,
 
-]);
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

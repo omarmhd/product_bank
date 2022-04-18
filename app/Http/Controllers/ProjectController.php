@@ -15,6 +15,11 @@ use PhpParser\Node\Stmt\Else_;
 
 class ProjectController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('verified');
+    }
     public function index()
     {
         $projects = Project::all();
