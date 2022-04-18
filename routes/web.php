@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 Route::get('/email/verify', function () {
-    return view('auth.verify-email');
+    return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 Route::group(['middleware' => ['auth','verified']], function () {
 
