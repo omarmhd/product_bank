@@ -74,20 +74,32 @@ class ProjectController extends Controller
         }
 
     }
+    public function indexProfile(){
+        return  view('profile',['user'=>auth()->user()]);
+
+    }
+
+
     public function store(Request $request, FilesService $filesService)
     {
 
         $validator = Validator::make($request->all(), [
+
+            'image' => 'required|image',
             'name' => 'required',
-            'image' => 'nullable',
             'description' => 'required',
+            'factor.*' => 'required',
             'target_name.*' => 'required',
             'target_number.*' => 'required|numeric',
-            'attachment.*' => 'required',
+            'attachment' => 'required',
+            'attachment.*' => 'required|file',
+
             'attachment_name.*' => 'required',
-            'factor.*' => 'required',
+
 
         ],['name.required'=>'اسم المشروع مطلوب','description.required'=>'وصف المشروع مطلوب']);
+
+
         if ($validator->fails()) {
             return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
         }
@@ -98,11 +110,8 @@ class ProjectController extends Controller
         if ($request->hasFile('image')) {
             $data['image'] = $filesService->upload($request->image, 'files', 'project-image');
         }
-
         $project = Project::create($data);
-
         $targets = [];
-
         foreach ($request->factor as $key => $value) {
             $targets[$key]['factor'] = $request->factor[$key];;
             $targets[$key]['target_name'] = $request->target_name[$key];;
@@ -110,6 +119,7 @@ class ProjectController extends Controller
 
         }
         $project->targets()->createMany($targets);
+
 
         $attachments = [];
         foreach ($request->attachment as $key => $value) {
@@ -138,11 +148,13 @@ class ProjectController extends Controller
     public  function  createUpdate(Request $request,$id, FilesService $filesService){
 
         $validator=Validator::make($request->all(), [
+
             'name' => 'required',
-            'image' => 'image',
             'description' => 'required',
-            'attachment.*' => 'required',
-            'attachment_name.*' => 'required',
+            'attachment.*' => 'sometimes|required',
+            'attachment' => 'sometimes|required',
+            'attachment_name.*' => 'sometimes|required',
+
         ]);
 
         $project=Project::findorfail($id);
@@ -157,7 +169,7 @@ class ProjectController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect()->back()->with('error', $validator->errors()->first())->withInput();
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
         }
 
         if($request->note_name){
@@ -169,7 +181,6 @@ class ProjectController extends Controller
             ]);
 
         }
-
         if($request->note_description){
             $log=Log::create([
                 'user_id'=>auth()->user()->id,
@@ -199,8 +210,7 @@ class ProjectController extends Controller
 
         }
 
-            return redirect()->route('project.edit',['project'=>$project->id])->with('success',"تم التعديل بنجاح");
-
+        return response()->json(['status' => 'success', 'message' => "  تم تحديث مشروع $project->name ",'redirect'=>route('project.index')]);
 
 
     }
@@ -279,7 +289,7 @@ class ProjectController extends Controller
         }
         $start = new \DateTime($project->created_at );
         $origin = new \DateTime(now()->format('Y-m-d H:i:s'));
-        $target = new \DateTime('2022-1-1 14:23:00');
+        $target = new \DateTime( date('Y-m-d H:i:s', strtotime($project->created_at. ' + 220 days')));
 
         $diff_time_start = $start->diff($target);
         $diff_time_origin = $origin->diff($target)->invert != 0 ? 0 : $origin->diff($target);
@@ -342,33 +352,34 @@ class ProjectController extends Controller
 
     public function status_update(Request $request, $id, FilesService $filesService)
     {
+        $validator = Validator::make($request->all(), [
+            'reason_status'=>'required',
+            'notes'=>'required',
+            'attachment' => 'required|mimes:pdf',
+            'attachment_name' => 'required',
 
 
-        if ($request->input('upload')) {
-            $validator = Validator::make($request->all(), [
-                'attachment_name' => 'required',
-                'attachment' => 'required|mimes:pdf'
-            ]);
+        ]);
 
-            if ($validator->fails()) {
-                return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
-            }
-            if ($request->hasFile('attachment')) {
-                $attachment = $filesService->upload($request->file('attachment'), 'files', $request->attachment_name);
-                $arr_attachment = [
-                    'project_id' => $id,
-                    'attachment' => $attachment,
-                    'attachment_name' => $request->attachment_name,
-                    'type' => 'الدروس المستفادة'
-                ];
-                $attach_create = Attachment::query()->updateOrInsert(['project_id' => $id, 'type' => 'الدروس المستفادة'], $arr_attachment);
-                return response()->json(['status' => 'success', 'message' => ""]);
-            }
+
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
         }
-
+        if ($request->hasFile('attachment')) {
+            $attachment = $filesService->upload($request->file('attachment'), 'files', $request->attachment_name);
+            $arr_attachment = [
+                'project_id' => $id,
+                'attachment' => $attachment,
+                'attachment_name' => $request->attachment_name,
+                'type' => 'الدروس المستفادة'
+            ];
+            $attach_create = Attachment::create($arr_attachment);
+            return response()->json(['status' => 'success', 'message' => ""]);
+        }
         if ($request->input('save')) {
-
             $project = Project::findorfail($id);
+
                    $project->update([
                     'reason_status' => $request->reason_status,
                     'notes' => $request->notes,
@@ -433,12 +444,29 @@ class ProjectController extends Controller
         $data=$request->except(['_method','_token']);
 
 
-       $project= Project::findorfail($id)->update(
-   $data
 
-        );
+      $final_input=  $request->input('final_evaluation');
 
+       if (isset($final_input)){
+           $data_log=[
+               'user_id'=>auth()->user()->id,
+               'project_id'=>$id ,
+               'event'=>'تقيم أولي',
+               'note'=>'تحديث التقيم الأولي'
+           ];
+       }else{
+           $data_log=[
+               'user_id'=>auth()->user()->id,
+               'project_id'=>$id ,
+               'event'=>'تقيم نهائي',
+               'note'=>'تحديث التقيم النهائي'
+           ];
+       }
 
+        $project= Project::findorfail($id)->update(
+            $data);
+        Log::updateOrCreate(['note'=>'','project_id'=>$id],$data_log);
+        return response()->json(['status' => 'success', 'message' => "تم تحديث التقيم بنجاح",'redirect'=>route('project.index')]);
 
 
 

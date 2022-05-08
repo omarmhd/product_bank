@@ -33,7 +33,10 @@
                             <input type="file" class="d-none" name="image" id="file-upload">
                             <button class="btn custom-btn-edit choose-file-btn">اختيار</button>
                             <span class="choose-txt">لم يتم اختيار صور</span>
+                            <i class="fa fa-times px-3 cancel-file" style="margin-left: -33px; display: none" aria-hidden="true"></i>
+
                         </div>
+
                     </div>
                     <div class="main-custom-input mt-4">
                         <input type="text" name="name" placeholder="اسم المشروع">
@@ -48,15 +51,15 @@
                             العامل: عدد تحميلات التطبيق 5000 تحميل , اسم الهدف: عدد التحميلات , الهدف :5000 </p>
                         <div class="main-custom-input mb-3 clone d-none" style="display: none">
                             <div>
-                                <input type="text" class="factor" required placeholder="العامل" disabled id="factor"
+                                <input type="text" class="factor"  placeholder="العامل" disabled id="factor"
                                        name="factor[]">
                             </div>
                             <div>
-                                <input type="text" class="target_name" required placeholder="اسم الهدف" disabled id="target_name"
+                                <input type="text" class="target_name"  placeholder="اسم الهدف" disabled id="target_name"
                                        name="target_name[]">
                             </div>
                             <div>
-                                <input type="text" class="target_number" required placeholder="الهدف(رقم)" disabled
+                                <input type="text" class="target_number"  placeholder="الهدف(رقم)" disabled
                                        id="target_number" name="target_number[]">
 
                             </div>
@@ -66,14 +69,14 @@
                         <div class="cards">
                             <div class="main-custom-input mb-3">
                                 <div>
-                                    <input type="text" class="factor" required placeholder="العامل" name="factor[]" id="factor">
+                                    <input type="text" class="factor"  placeholder="العامل" name="factor[]" id="factor">
                                 </div>
                                 <div>
-                                    <input type="text" class="target_name" required placeholder="اسم الهدف" name="target_name[]"
+                                    <input type="text" class="target_name"  placeholder="اسم الهدف" name="target_name[]"
                                            id="target_name">
                                 </div>
                                 <div>
-                                    <input type="text" class="target_number" required placeholder="الهدف(رقم)"
+                                    <input type="text" class="target_number"  placeholder="الهدف(رقم)"
                                            name="target_number[]" id="target_number">
                                 </div>
                                 <i class="fa fa-times  new-remove" style="opacity: 0;pointer-events: none" aria-hidden="true"></i>
@@ -89,17 +92,16 @@
                         <h2>المرفقات</h2>
                         <p>إضافة المرفقات الخاصة بالمشروع مثل خطة العمل و الملفات المتعلقة بالمشروع </p>
                         <div class="main-custom-input upload-input clone d-none mb-3">
-                            <input type="file" required="" class="d-none" id="file-upload" name="attachment[]" disabled="">
+                            <input type="file" class="d-none" id="file-upload" name="attachment[]" disabled="">
                             <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
                             <div>
-                                <input type="text" required="" placeholder="اسم الملف" name="attachment_name[]" disabled="">
+                                <input type="text"  placeholder="اسم الملف" name="attachment_name[]" disabled="">
                             </div>
                             <i class="fa fa-times  new-remove" aria-hidden="true"></i>
                         </div>
 
                         <div class="cards">
                             <div class="main-custom-input upload-input mb-3">
-
                                 <input type="file" class="d-none" id="file-upload" name="attachment[]">
                                 <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
                                 <div>
@@ -155,45 +157,14 @@
                     success: (data) => {
 
                         if(data.status=="success") {
+                            $('#form1').trigger("reset");
 
-                            let timerInterval
                             Swal.fire({
-                                title: 'يتم رفع الملفات ',
-                                html: 'سيتم إغلاق النافذة بعد <b></b> ثانية.',
-                                timer: 2000,
-                                allowOutsideClick: false,
-
-                                timerProgressBar: true,
-                                didOpen: () => {
-                                    Swal.showLoading()
-                                    const b = Swal.getHtmlContainer().querySelector('b')
-                                    timerInterval = setInterval(() => {
-                                        b.textContent = Swal.getTimerLeft()
-                                    }, 100)
-                                },
-                                willClose: () => {
-                                    clearInterval(timerInterval)
-                                }
-                            }).then((result) => {
-                                /* Read more about handling dismissals below */
-                                if (result.dismiss === Swal.DismissReason.timer) {
-                                    $('.spinner-border').hide();
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: data.status,
-                                        title: data.message,
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    })
-
-
-                                    setTimeout(function () {
-                                        window.location = data.redirect
-                                    }, 1000);
-
-                                }
-
-
+                                position: 'center',
+                                icon: data.status,
+                                title: data.message,
+                                showConfirmButton: false,
+                                timer: 2000
                             })
                         }else {
                             Swal.fire({

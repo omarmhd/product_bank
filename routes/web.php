@@ -17,7 +17,7 @@ Auth::routes(['verify' => true]);
 Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
-Route::group(['middleware' => ['auth','verified']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', [ProjectController::class, 'index'])->middleware('verified');;
 
@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth','verified']], function () {
     //
     Route::get('log', [ProjectController::class, 'log'])->name('log');
 
+    Route::get('indexProfile', [ProjectController::class, 'indexProfile'])->name('indexProfile');
+
 
     Route::post('upload/file', [ProjectController::class, 'upload_file'])->name('upload_file');
     Route::post('like/{id}', [ProjectController::class, 'like'])->name('like');
@@ -59,3 +61,6 @@ Route::group(['middleware' => ['auth','verified']], function () {
 //Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');

@@ -118,6 +118,26 @@ return [
             'required' => 'حقل الملاحظات  فارغ ',
 
         ],
+        'attachment_name.*'=>[
+            'required' => 'حقل اسم الملف  فارغ ',
+
+        ],
+        'attachment.*'=>[
+            'required' => 'حقل  الملف  فارغ ',
+
+        ],
+        'target_name.*'=>[
+            'required' => 'حقل  اسم الهدف  فارغ ',
+
+        ],
+        'target_number.*'=>[
+             'required' => 'حقل  رقم الهدف  فارغ ',
+            'numeric' => 'يجب  أن يكون حقل رقم الهدف   رقمًا',
+
+] ,      'factor.*'=>[
+             'required' => 'حقل  العامل   فارغ ',
+
+]
     ],
 
     /*
@@ -171,7 +191,13 @@ return [
         'factor' => 'العامل',
         'target_number' => 'رقم الهدف',
         'result' => 'النتيجة',
-         'note'=>'الملاحظات'
+         'note'=>'الملاحظات',
+        'reason_status'=>'توضيح السبب',
+        'notes'=>'الملاحظات',
+        'image'=>'صورة',
+        'note_name'=>'ملاحظات تعديل الاسم',
+        'note_description'=>'ملاحظات تعديل الوصف'
+
 
     ],
 

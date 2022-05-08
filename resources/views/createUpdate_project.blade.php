@@ -20,7 +20,7 @@
             <div class="col-lg-6 mx-auto">
                 <h2>معلومات المشروع</h2>
 
-                <form action="{{route('project.createUpdate.update',['id'=>$projects->id])}}" method="post" id="form1" enctype="multipart/form-data">
+                <form action="{{route('project.createUpdate.update',['id'=>$projects->id])}}" data-id="{{$projects->id}}" method="post" id="form1" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="drag-drop-image">
@@ -34,11 +34,13 @@
                             <input type="file" class="d-none" name="image" id="file-upload">
                             <button class="btn custom-btn-edit choose-file-btn">اختيار</button>
                             <span class="choose-txt">لم يتم اختيار صور</span>
+                            <i class="fa fa-times px-3 cancel-file" style="margin-left: -33px; display: none" aria-hidden="true"></i>
+
                         </div>
                     </div>
                     <div class="main-custom-input mt-4 ">
                         <input type="text" name="name" placeholder="اسم المشروع" value="{{ old('name',$projects->name) }}" >
-                        <input type="text" name="note_name" placeholder="ملاحظات" value="{{ old('note_name',$projects->note_name) }}" >
+                        <input type="text" class="mt-3" name="note_name" placeholder="   ملاحظات التعديل على اسم المشروع" value="{{ old('note_name',$projects->note_name) }}" >
 
                     </div>
                     <div class="main-custom-input mt-4 col-10" >
@@ -47,7 +49,7 @@
                     <div class="main-custom-input mt-4">
                         <textarea name="description" id="" class="w-100" data-error rows="5"
                                   placeholder="وصف المشروع"  >{{ old('description',$projects->description) }}</textarea>
-                        <input type="text" name="note_description" placeholder="ملاحظات" value="{{ old('note_description',$projects->note_description) }}" >
+                        <input type="text" class="mt-3" name="note_description" placeholder="ملاحظات التعديل على وصف المشروع" value="{{ old('note_description',$projects->note_description) }}" >
 
                     </div>
 
@@ -58,9 +60,9 @@
 
 
                         <div class="main-custom-input upload-input clone d-none mb-3">
-                            <input type="file" required class="d-none" id="file-upload" name="attachment[]"disabled>
+                            <input type="file"  class="d-none" id="file-upload" name="attachment[]" disabled>
                             <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
-                            <input type="text" required placeholder="اسم الملف" name="attachment_name[]" value="" disabled>
+                            <input type="text"  placeholder="اسم الملف" name="attachment_name[]" disabled>
                             <i class="fa fa-times px-3 new-remove" style="margin-left: -33px;" aria-hidden="true"></i>
                         </div>
 
@@ -100,7 +102,36 @@
 
     <script>
         $(function () {
+            $('#form1').on('submit', function (e) {
+                e.preventDefault()
+                var  url="{{route('project.createUpdate.update',['id'=>':id'])}}"
+                var id=$(this).data('id')
+                url=url.replace(':id',id)
+                var formData = new FormData(this);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $("input[name=_token]").val()
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        if(data.status){
+                        Swal.fire({
+                            position: 'center',
+                            icon: data.status,
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        })}}
 
+                })
+            })
 
 
 

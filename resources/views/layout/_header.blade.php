@@ -64,7 +64,7 @@
                             <div class="dropdown-menu">
                                 <a href="{{route('myProjects')}}" class="dropdown-item">مشاريعي</a>
                                 <a href="{{route('log')}}" class="dropdown-item">التدقيق</a>
-                                <a href="#" class="dropdown-item">حسابي</a>
+                                <a href="{{route('indexProfile')}}" class="dropdown-item">حسابي</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -84,12 +84,13 @@
                     <div class="aside-bar-menu">
                         <div class="close-menu"><i class="fa fa-times"></i></div>
                         <div class="search">
-                            <form action="">
-                                <input type="text" placeholder="بحث ...">
-                                <button type="submit" class="btn-search"> <i class="fa fa-search" aria-hidden="true"></i></button>
+                            <form action="{{route('project.search')}}" method="GET">
+
+                                <input type="text" placeholder="بحث ..." name="search">
+                                <button type="submit" class="btn btn-light btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
-                        <a href="new-project.html" class="btn custom-btn-edit">مشروع جديد</a>
+                        <a href="{{route('project.create')}}" class="btn custom-btn-edit">مشروع جديد</a>
                         <div class="btn-group dropdown-custom">
                             <button class="btn btn-secondary btn-sm dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                <span>
@@ -98,12 +99,22 @@
                                     <path id="Path_382" data-name="Path 382" d="M0,0H32.718V32.718H0Z" fill="none"></path>
                                   </svg>
                                </span>
-                                محمد خان
+                                {{auth()->user()->name}}
+
                             </button>
                             <div class="dropdown-menu">
-                                <a href="index.html" class="dropdown-item">مشاريعي</a>
-                                <a href="log.html" class="dropdown-item">التدقيق</a>
-                                <a href="#" class="dropdown-item">حسابي</a>
+                                <a href="{{route('myProjects')}}" class="dropdown-item">مشاريعي</a>
+                                <a href="{{route('log')}}" class="dropdown-item">التدقيق</a>
+                                <a href="{{route('indexProfile')}}" class="dropdown-item">حسابي</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    تسجيل خروج
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </div>

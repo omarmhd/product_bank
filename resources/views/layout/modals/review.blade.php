@@ -74,7 +74,7 @@
                     <div class="row">
 
                         <div class="col-12">
-                            <h3>التقييم الاولي</h3>
+                            <h3>التقييم النهائي</h3>
                         </div>
 
 
@@ -82,7 +82,7 @@
                             <div class="custom-checkbox text-left">
                                 <input type="checkbox" id="first"  {{in_array('1', $project->final_evaluation)?"checked":""}}  name="final_evaluation[]" value="1">
                                 <span class="checkmark"></span>
-                                <label for="first">تم تحقيق اكثر من نصف العوائد المتوقعة</label>
+                                <label for="first">تم تحقيق أكثر من 85% من المستهدفات</label>
                             </div>
                             <div class="custom-checkbox text-left">
                                 <input type="checkbox" id="s" {{in_array('2', $project->final_evaluation)?"checked":""}}   name="final_evaluation[]" value="2">
@@ -92,17 +92,18 @@
                             <div class="custom-checkbox text-left">
                                 <input type="checkbox" id="th" {{in_array('3', $project->final_evaluation)?"checked":""}}   name="final_evaluation[]"  value="3">
                                 <span class="checkmark"></span>
-                                <label for="th">تم تحقيق اكثر من نصف عدد التحميلات المتوقع </label>
+                                <label for="th">تم تحديث البزنس مودل ليتلاءم مع الواقع</label>
                             </div>
                             <div class="custom-checkbox text-left">
                                 <input type="checkbox" id="fr" {{in_array('4', $project->final_evaluation)?"checked":""}}  name="final_evaluation[]" value="4" >
                                 <span class="checkmark"></span>
-                                <label for="fr">تم زيارة الموقع اكثر من 2500 مرة </label>
+                                <label for="fr">تم تحقيق أكثر من 65% من العوائد المتوقعة
+                                </label>
                             </div>
                             <div class="custom-checkbox text-left">
                                 <input type="checkbox" id="fi" {{in_array('5', $project->final_evaluation)?"checked":""}}  name="final_evaluation[]" value="5">
                                 <span class="checkmark"></span>
-                                <label for="fi">وصول عدد المستخدمين النشطين الي 1000 عميل</label>
+                                <label for="fi">تم تحقيق أكثر من 55% من عدد العمليات المتوقعة</label>
                             </div>
                         </div>
                         <div class="col-10  mx-auto">

@@ -69,7 +69,7 @@
                                                                                                                               aria-hidden="true"></i></a>
                     </div>
                     <div class="path-product">
-                        <h2>   رحلة المنتج    :          <span class="text-infos" style="color: #0a6000"> مضى {{$current_day}} يوم </span></h2>
+                        <h2>   رحلة المنتج    :          <span class="text-infos" style="color: #0056B3"> مضى {{$current_day}} يوم </span></h2>
 
                         <div class="d-flex justify-content-between visit">
 
@@ -78,7 +78,7 @@
                                 <h6>البداية</h6>
                                 <h6>120يوم</h6>
                             </div>
-                            <div class="rate rate-first" data-toggle="modal"  data-target="#rate1" style="">
+                            <div class="rate rate-first" data-toggle="modal"  data-target="#rate1" style="pointer-events: {{$current_day>='120'?"":"none"}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
                                      viewBox="0 0 53.034 61.224">
                                     <g id="Group_240" data-name="Group 240"
@@ -102,7 +102,7 @@
                                 </svg>
                             </div>
 {{--                            //pointer-events: none--}}
-                            <div class="rate rate-final" data-toggle="modal" data-target="#rate2" style="{{$current_day>='0'?"":""}}">
+                            <div class="rate rate-final" data-toggle="modal" data-target="#rate2" style="pointer-events: {{$current_day>='240'?"":"none"}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="53.034" height="61.224"
                                      viewBox="0 0 53.034 61.224" >
                                     <g id="Group_240" data-name="Group 240"
@@ -497,10 +497,10 @@
 
                             <label for="" class="mt-2">حالة المشروع</label>
                             <select name="status" class="w-100">
-                                <option value="قيد التنفيذ">قيد التنفيذ</option>
-                                <option value="تم التنفيذ">تم التنفيذ</option>
-                                <option value="معلق">معلق</option>
-                                <option value="مغلق">مغلق</option>
+                                <option {{$project->status=="قيد التنفيذ"?"selected":""}} value="قيد التنفيذ">قيد التنفيذ</option>
+                                <option {{$project->status=="تم التنفيذ"?"selected":""}}  value="تم التنفيذ">تم التنفيذ</option>
+                                <option {{$project->status=="معلق"?"selected":""}}  value="معلق">معلق</option>
+                                <option {{$project->status=="مغلق"?"selected":""}}  value="مغلق">مغلق</option>
 
                             </select>
 
@@ -514,14 +514,19 @@
                             <div class="upload">
                                 <h3>مرفق</h3>
                                 <p>إرفاق ملف للدروس المستفادة من اغلاق المشروع</p>
-                                <div class="main-custom-input upload-input">
+                                <i class="fa fa-times cancel-file" style="display: none" ></i>
+
+                                <div class="main-custom-input upload-input" style="width: 90% ;display: inline-block" >
+
                                     <input type="file" class="d-none" name="attachment" id="file-upload">
                                     <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
                                     <input type="text" placeholder="اسم الملف" name="attachment_name">
-                                    <button type="button" class="btn custom-btn-edit upload-file-btn" name="upload" value ="upload">
+                                    <button type="button" style="" class="btn custom-btn-edit upload-file-btn" name="upload" value ="upload">
                                         <span style="display: none" class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
                                         رفع</button>
+
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-8">
@@ -604,11 +609,12 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
+                            }
+
+                            if (data.status=='success'){
                                 setTimeout(function () {
                                     location.reload()
                                 }, 1000);
-
-
 
                             }
 
@@ -736,7 +742,7 @@
 
         $('.delete-btn-target').click(function (){
             Swal.fire({
-                title: 'توضيح سبب الحذف ',
+                title: 'توضيح سبب الحذف',
                 input: 'text',
                 showCancelButton: true,
                 confirmButtonText: 'تأكيد',
@@ -798,9 +804,14 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                  $('#rate1').modal('hide');
-                    $('#rate2').modal('hide');
 
+                    Swal.fire({
+                        position: 'center',
+                        icon: data.status,
+                        title: data.message,
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 }})
 
         });

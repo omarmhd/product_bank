@@ -119,7 +119,15 @@ $(document).on('click','.choose-file-btn',function(e){
 });
 $('#file-upload').change(function(e){
     $(this).siblings('.choose-txt').text('تم اختيار الصورة');
+    $('.cancel-file').show()
 });
+$(document).on('click', '.cancel-file', function () {
+    $('#file-upload').val('');
+    $(this).siblings('.choose-txt').text(' لم يتم اختيار صور ');
+    $(this).hide()
+
+});
+
 // $(document).on('click','.upload-file-btn',function(e){
 //     e.preventDefault();
 //     console.log('upload');
