@@ -38,7 +38,13 @@
                                 <div class="checkbox">
                                     <label> <input type="checkbox" name="remember" > تذكرني </label>
                                 </div> <!-- checkbox .// -->
-                            </div> <!-- form-group// -->
+                            </div>
+                                <div class="form-group">
+                                    <a href="{{route('password.request')}}"> نسيت كلمة المرور؟</a>
+
+                                </div>
+
+                                <!-- form-group// -->
                             <div class="form-group">
                                 <button type="submit" class="btn btn-custom-login"> تسجيل دخول </button>
                             </div> <!-- form-group// -->

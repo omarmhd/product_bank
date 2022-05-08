@@ -62,5 +62,5 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
+    return view('auth.passwords.email');
 })->middleware('guest')->name('password.request');
