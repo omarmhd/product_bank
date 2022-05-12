@@ -35,10 +35,7 @@ class ProjectController extends Controller
                 Project::find($project->id)->update([
                     'project_health'=>'ضعيفة'
                 ]);
-            }else{
-                Project::find($project->id)->update([
-                    'project_health'=>'عالية'
-                ]);
+
             }
 
 
@@ -234,6 +231,7 @@ class ProjectController extends Controller
      if ($request->hasFile('image')) {
             $data['image'] = $filesService->upload($request->image, 'files', 'project-image');
         }
+        $data['project_health'] ="عالية";
 
         $project = Project::update($data);
 

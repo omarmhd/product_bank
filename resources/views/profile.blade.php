@@ -29,10 +29,10 @@
 
 
                     <div class="main-custom-input mt-4">
-                        <input type="text" name="name" placeholder="الاسم" value="{{old('name',$user->name)}}">
+                        <input type="text" name="name" placeholder="الاسم" readonly value="{{old('name',$user->name)}}">
                     </div>
                     <div class="main-custom-input mt-4">
-                        <input type="email" name="email" placeholder="البريد الإلكتروني " value="{{old('email',$user->email)}}">
+                        <input type="email" name="email" placeholder="البريد الإلكتروني " readonly  value="{{old('email',$user->email)}}">
                     </div>
 
                     <div class="main-custom-input mt-4">

@@ -55,8 +55,9 @@
                             <h2>{{$target->factor}}</h2>
                             <div class="info">
                                 <div class="nubmer-of-clac" hidden>
-                                    <span>{{$target->target_number}}</span>
                                     <small>{{$target->result}}</small>
+
+                                    <span>{{$target->target_number}}</span>
                                 </div>
                                 <div class="nubmer-of">
                                     <span>عدد التحميلات</span>

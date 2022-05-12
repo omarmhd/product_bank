@@ -103,7 +103,14 @@
     <script>
         $(function () {
             $('#form1').on('submit', function (e) {
+
                 e.preventDefault()
+                var time = performance.now() - this.startTime;
+
+                //Convert milliseconds to seconds.
+                var seconds = time / 1000;
+                let timerInterval
+
                 var  url="{{route('project.createUpdate.update',['id'=>':id'])}}"
                 var id=$(this).data('id')
                 url=url.replace(':id',id)
@@ -113,14 +120,30 @@
                         'X-CSRF-TOKEN': $("input[name=_token]").val()
                     }
                 });
+
                 $.ajax({
+
                     type: 'POST',
                     url: url,
                     data: formData,
                     cache: false,
                     contentType: false,
                     processData: false,
+                    beforeSend: function() {
+                        swal.fire({
+                            html: '<h5>جاري  إضافة التعديلات ..</h5>',
+                            showConfirmButton: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+
+                            }
+                            ,
+                            allowOutsideClick: false
+
+                        });
+                    },
                     success: (data) => {
+
                         if(data.status){
                         Swal.fire({
                             position: 'center',

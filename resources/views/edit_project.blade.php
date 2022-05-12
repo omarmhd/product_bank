@@ -521,9 +521,7 @@
                                     <input type="file" class="d-none" name="attachment" id="file-upload">
                                     <button class="btn custom-btn-edit choose-file-btn">اختار ملف</button>
                                     <input type="text" placeholder="اسم الملف" name="attachment_name">
-                                    <button type="button" style="" class="btn custom-btn-edit upload-file-btn" name="upload" value ="upload">
-                                        <span style="display: none" class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
-                                        رفع</button>
+
 
                                 </div>
 

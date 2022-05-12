@@ -140,6 +140,7 @@
 
             $('#form1').on('submit', function (e) {
                 e.preventDefault()
+
                 var  url="{{route('project.store')}}"
                 var formData = new FormData(this);
                 $.ajaxSetup({
@@ -147,6 +148,8 @@
                         'X-CSRF-TOKEN': $("input[name=_token]").val()
                     }
                 });
+                var sweet_loader = '<div class="sweet_loader"><svg viewBox="0 0 140 140" width="140" height="140"><g class="outline"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="rgba(0,0,0,0.1)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g><g class="circle"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="#71BBFF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dashoffset="200" stroke-dasharray="300"></path></g></svg></div>';
+
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -154,6 +157,20 @@
                     cache: false,
                     contentType: false,
                     processData: false,
+                    beforeSend: function() {
+
+                        Swal.fire({
+                            html: '<h5>جاري  حفظ  المشروع ..</h5>',
+                            showConfirmButton: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+
+                            }
+                            ,
+                            allowOutsideClick: false
+
+                        });
+                    },
                     success: (data) => {
 
                         if(data.status=="success") {

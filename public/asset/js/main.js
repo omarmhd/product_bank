@@ -102,11 +102,12 @@ $(document).on('click', '.edit', function () {
         $word1 = $(this).children('.title-text').val().split(' ')[0];
         $word2 = $(this).children('.title-text').val().split(' ')[1];
         // $text1 = $word1+' '+$word2;
-        $text1 =$(this).children('input[name=result]').val();;
+        $text1 =$(this).children('.goal').val();
         $total = $(this).children('.total').val();
         $(this).parent().children('.title').html($text);
         $(this).parent().children('.info').children('.nubmer-of').children('span').html($text1);
         $(this).parent().children('.info').children('.nubmer-of').children('small').html($total);
+
     })
 
 });
