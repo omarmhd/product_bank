@@ -22,12 +22,15 @@ class ProjectController extends Controller
     }
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::query();
+        $projects =$projects->get();
+        $projects_health =$projects->where('project_health','عالية');
         $count=$projects->count();
 
         $now = Carbon::now();
 
-        foreach($projects as $project){
+
+        foreach($projects_health as $project){
             $update_date=Carbon::parse($project->updated_at);
             $diff = $update_date->diffInDays($now);
 
@@ -115,6 +118,7 @@ class ProjectController extends Controller
             $targets[$key]['target_number'] = $request->target_number[$key];;
 
         }
+
         $project->targets()->createMany($targets);
 
 
@@ -128,7 +132,7 @@ class ProjectController extends Controller
 
 
         if ($project) {
-            return response()->json(['status' => 'success', 'message' => " تم إضافة مشروع$project->name",'redirect'=>route('project.index')]);
+            return response()->json(['status' => 'success', 'message' => "  تم إضافة مشروع $project->name",'redirect'=>route('project.index')]);
 
         } else {
             return response()->json(['status' => 'error', 'message' => "خطأ في اضافة المشروع"]);
@@ -207,7 +211,7 @@ class ProjectController extends Controller
 
         }
 
-        return response()->json(['status' => 'success', 'message' => "  تم تحديث مشروع $project->name ",'redirect'=>route('project.index')]);
+        return response()->json(['status' => 'success', 'message' => "  تم تحديث مشروع $project->name ",'redirect'=>route('project.index'),'redirect_project'=>route('project.edit',['project'=>$id])]);
 
 
     }
@@ -373,7 +377,6 @@ class ProjectController extends Controller
                 'type' => 'الدروس المستفادة'
             ];
             $attach_create = Attachment::create($arr_attachment);
-            return response()->json(['status' => 'success', 'message' => ""]);
         }
         if ($request->input('save')) {
             $project = Project::findorfail($id);
@@ -383,7 +386,12 @@ class ProjectController extends Controller
                     'notes' => $request->notes,
                     'status' => $request->status,
                 ]);
-
+            Log::Create([
+                'user_id'=>auth()->user()->id,
+                'project_id'=>$id ,
+                'event'=>  ' حالة المشروع'. $request->status,
+                'note'=>$request->notes
+            ]);
             return response()->json(['status' => 'success', 'message' =>"تم التحديث إلى الحالة    " . "( ".$project->status ."). "]);
 
     }
@@ -471,21 +479,10 @@ class ProjectController extends Controller
     }
     public function filter(Request $request){
 
-
-
         $type_order=$request->date=="latest"?"desc":"asc";
         $projects =Project::when($request->project_status Or $request->project_health, function ($query) use ($request) {
-            $query->where('project_health',$request->project_health)->Orwhere('status',$request->project_status);
+            $query->where('project_health',$request->project_health)->where('status',$request->project_status);
         })->orderby('id',$type_order)->get();
-
-
-
-
-
-
-
-
-
 
 
         return response()->json(['projects'=>$projects,'date'=>$request->date]);

@@ -183,6 +183,10 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             })
+                            location.href = data.redirect;
+
+
+
                         }else {
                             Swal.fire({
                                 position: 'center',

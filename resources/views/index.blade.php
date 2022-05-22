@@ -130,11 +130,6 @@
                             @endauth
                             url =url.replace(':project',value.id)
 
-
-
-
-
-
                             $('.projects').append(
                                 `  <div class="col-md-6 mb-4">
                                     <a href=`+url+`>

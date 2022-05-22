@@ -92,6 +92,7 @@ $(document).on('click', '.new-remove', function () {
 });
 
 $(document).on('click', '.edit', function () {
+    $(this).hide();
 
     $(this).parent().parent().parent().children('.title').fadeToggle(0);
     $(this).parent().parent().parent().children('.info').children('.nubmer-of').fadeToggle(0);

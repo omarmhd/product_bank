@@ -112,6 +112,7 @@
                 let timerInterval
 
                 var  url="{{route('project.createUpdate.update',['id'=>':id'])}}"
+
                 var id=$(this).data('id')
                 url=url.replace(':id',id)
                 var formData = new FormData(this);
@@ -151,7 +152,15 @@
                             title: data.message,
                             showConfirmButton: false,
                             timer: 2000
-                        })}}
+                        })}
+                        if (data.status=='success'){
+                            setTimeout(function () {
+                                location.href = data.redirect_project;
+
+                            }, 1000);
+
+                        }
+                    }
 
                 })
             })
