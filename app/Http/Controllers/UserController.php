@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -18,8 +19,11 @@ class UserController extends Controller
 
     public  function  update(Request $request,$id){
         $user=User::find($id);
-
-        $user->update($request->all());
+        $data=$request->except('password');
+        if($request->password){
+            $data['password']=Hash::make($request->password);
+        }
+        $user->update($data);
 
 
 

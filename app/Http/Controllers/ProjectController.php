@@ -10,6 +10,7 @@ use App\Models\Target;
 use App\services\FilesService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Stmt\Else_;
 
@@ -103,13 +104,15 @@ class ProjectController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
         }
-        $data = $request->except(['factor', 'target_name', 'target_number', 'attachment', 'attachment_name']);
+        $data = $request->except(['password','factor', 'target_name', 'target_number', 'attachment', 'attachment_name']);
         $data['status'] = "قيد التنفيذ";
         $data['project_health'] = "عالية";
         $data['user_id']=auth()->user()->id;
         if ($request->hasFile('image')) {
             $data['image'] = $filesService->upload($request->image, 'files', 'project-image');
         }
+
+
         $project = Project::create($data);
         $targets = [];
         foreach ($request->factor as $key => $value) {

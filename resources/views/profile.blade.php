@@ -42,6 +42,11 @@
                         <input type="text" name="job" placeholder="العنوان الوظيفي" value="{{old('job',$user->job)}}">
                     </div>
                     <div class="main-custom-input mt-4">
+                        <label for="">تغير كلمة المرور</label>
+                        <input type="password" name="password" placeholder="" >
+
+                    </div>
+                    <div class="main-custom-input mt-4">
                         <label for="">  الدور الوظيفي</label>
                         <select name="role" id="">
                             <option value="" selected disabled > </option>
