@@ -57,10 +57,14 @@
                                         </a>
                                 </div>
 
-                                @empty
+
+
+
+                                    @empty
 
                                    <H3>  لا يوجد نتائج </H3>
                                 @endforelse
+
                                 @endauth
                             </div>
 
@@ -68,7 +72,13 @@
 
                         </div>
                     </div>
+        <div class="" style="text-align: center; padding:20px 0px  ">
+            {{ $projects->links() }}
+
+        </div>
             </section>
+
+
 @endsection
 
 

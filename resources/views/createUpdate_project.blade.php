@@ -130,19 +130,43 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    beforeSend: function() {
-                        swal.fire({
-                            html: '<h5>جاري  إضافة التعديلات ..</h5>',
-                            showConfirmButton: false,
-                            didOpen: () => {
-                                Swal.showLoading()
+                             xhr: function () {
+                            var xhr = new window.XMLHttpRequest();
+                            //Upload progress
+                            xhr.upload.addEventListener("progress", function (evt) {
+                                if (evt.lengthComputable) {
 
-                            }
-                            ,
-                            allowOutsideClick: false
+                                    var percentComplete = Math.floor((evt.loaded / evt.total)*100);
+                                    //Do something with upload progress
+                                    $('.status-upload').text(" جاري التعديل "+percentComplete+"%");
 
-                        });
-                    },
+                                }
+                            }, false);
+                            //Download progress
+                            xhr.addEventListener("progress", function (evt) {
+                                if (evt.lengthComputable) {
+                                    var percentComplete = evt.loaded / evt.total;
+                                    //Do something with download progress
+                                }
+                            }, false);
+                            return xhr;
+                        },
+
+                     beforeSend: function(response) {
+                            swal.fire({
+                                html: '<h5 class="status-upload">جاري  تغير حالة المشروع   ..</h5>',
+                                showConfirmButton: false,
+                                didOpen: () => {
+                                    Swal.showLoading()
+
+
+                                }
+                                ,
+                                allowOutsideClick: false
+
+                            });
+                        },
+
                     success: (data) => {
 
                         if(data.status){

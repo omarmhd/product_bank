@@ -24,7 +24,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::query();
-        $projects =$projects->get();
+        $projects =$projects->simplePaginate(10);
         $projects_health =$projects->where('project_health','عالية');
         $count=$projects->count();
 
@@ -34,8 +34,11 @@ class ProjectController extends Controller
         foreach($projects_health as $project){
             $update_date=Carbon::parse($project->updated_at);
             $diff = $update_date->diffInDays($now);
-
-            if($diff>=14){
+            if($diff> 14 and $diff <21){
+                Project::find($project->id)->update([
+                    'project_health'=>'متوسطة'
+                ]);}
+            if($diff>=21){
                 Project::find($project->id)->update([
                     'project_health'=>'ضعيفة'
                 ]);
@@ -93,7 +96,7 @@ class ProjectController extends Controller
             'target_name.*' => 'required',
             'target_number.*' => 'required|numeric',
             'attachment' => 'required',
-            'attachment.*' => 'required|file',
+            'attachment.*' => 'required|max:10000',
 
             'attachment_name.*' => 'required',
 
@@ -228,7 +231,7 @@ class ProjectController extends Controller
             'description' => 'required',
             'target_name.*' => 'required',
             'target_number.*' => 'required',
-            'attachment.*' => 'required',
+            'attachment.*' => 'required|max:10000',
             'attachment_name.*' => 'required',
             'factor.*' => 'required',
 
@@ -318,7 +321,7 @@ class ProjectController extends Controller
             'factor.*' => 'required',
             'target_number.*' => 'required|numeric',//numeric
             'result.*' =>  'required|numeric',//numeric
-            'note.*'=>'required'
+
         ],[
         ]);
 
@@ -343,6 +346,7 @@ class ProjectController extends Controller
         }
 
         $project = Project::find($id);
+        $project->update(["project_health"=>"عالية"]);
         $project->targets()->delete();
         $target = $project->targets()->createMany(
             $targets
@@ -360,7 +364,7 @@ class ProjectController extends Controller
         $validator = Validator::make($request->all(), [
             'reason_status'=>'required',
             'notes'=>'required',
-            'attachment' => 'required|mimes:pdf',
+            'attachment' => 'required|max:10000',
             'attachment_name' => 'required',
 
 
