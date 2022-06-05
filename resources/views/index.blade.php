@@ -145,7 +145,7 @@
                                     <a href=`+url+`>
                                         <div class="card-1">
                                             <figure>
-                                                <img src="{{asset('files')}}/`+value.image+`" class='img-fluid' alt="" srcset="">
+                                                <img src="{{asset('files')}}/`+value.image+`" style="height: 170px ;width: 100%" class='img-fluid' alt="" srcset="">
                                             </figure>
                                             <div class="body-card">
                                                 <h1>`+value.name+`</h1>
