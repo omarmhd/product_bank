@@ -52,7 +52,7 @@ class ProjectController extends Controller
     }
     public function myProjects()
     {
-        $projects = Project::where('user_id',auth()->user()->id)->get();
+        $projects = Project::where('user_id',auth()->user()->id)->simplePaginate(10);
         $count=$projects->count();
         $type_page="myProjects";
         return view('index', compact('projects','count','type_page'));
