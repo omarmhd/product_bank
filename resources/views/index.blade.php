@@ -42,7 +42,7 @@
                                @endif
                                         <div class="card-1">
                                             <figure>
-                                                <img src="{{asset('files')}}/{{$project->image}}" width="100%" class='img-fluid' alt="" srcset="">
+                                                <img src="{{asset('files')}}/{{$project->image}}" style="height: 170px" class='img-fluid' alt="" srcset="">
                                             </figure>
                                             <div class="body-card">
                                                 <h1>{{$project->name}}</h1>
